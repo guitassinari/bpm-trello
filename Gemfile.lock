@@ -161,6 +161,7 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    yard (0.9.25)
 
 PLATFORMS
   ruby
@@ -181,6 +182,7 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
   webpacker
+  yard
 
 RUBY VERSION
    ruby 2.6.2p47

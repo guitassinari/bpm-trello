@@ -1,0 +1,1 @@
+--title "BPM Trello" --exclude application_record app/models/*.rb lib/**/*.rb
