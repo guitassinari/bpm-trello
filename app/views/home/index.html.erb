@@ -1,3 +1,10 @@
-<div>
-  Verifying Trello connection...
-</div>
+<h1>Hello, <%= @member.full_name %>!</h1>
+<div>Your Trello has been connected successfully.</div>
+<div>Here are your boards:</div>
+
+<ul>
+  <% @boards.each do |board| %>
+    <li><%= board %></li>
+  <% end %>
+</ul>
+
