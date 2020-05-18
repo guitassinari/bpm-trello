@@ -1,10 +1,10 @@
-<h1>Hello, <%= @member.full_name %>!</h1>
-<div>Your Trello has been connected successfully.</div>
-<div>Here are your boards:</div>
-
 <ul>
-  <% @boards.each do |board| %>
-    <li><%= board %></li>
+  <% @sentences.each do |sentence| %>
+    <% sentence.get(:tokens).each do |token| %>
+    <li>
+      <%= token.get(:value).to_s %> - <%= token.get(:part_of_speech).to_s %>
+    </li>
+    <% end %>
   <% end %>
 </ul>
 

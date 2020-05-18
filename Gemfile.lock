@@ -45,6 +45,8 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     arel (9.0.0)
+    bind-it (0.2.7)
+      rjb (~> 1.4.3)
     bindex (0.8.1)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
@@ -133,6 +135,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rjb (1.4.9)
     ruby-trello (2.3.0)
       activemodel (>= 3.2.0)
       addressable (~> 2.3)
@@ -163,6 +166,8 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stanford-core-nlp (0.5.3)
+      bind-it (~> 0.2.7)
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -206,6 +211,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
+  stanford-core-nlp
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
