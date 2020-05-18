@@ -44,6 +44,7 @@ group :development, :test do
 
   # documentation
   gem 'yard'
+  gem 'rspec-rails', '~> 4.0.0'
 end
 
 group :development do
