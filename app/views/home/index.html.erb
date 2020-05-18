@@ -1,6 +1,10 @@
 <ul>
   <% @sentences.each do |sentence| %>
-    <li><%= sentence.get(:basic_dependencies).to_s %></li>
+    <% sentence.get(:tokens).each do |token| %>
+    <li>
+      <%= token.get(:value).to_s %> - <%= token.get(:part_of_speech).to_s %>
+    </li>
+    <% end %>
   <% end %>
 </ul>
 
