@@ -10,18 +10,17 @@ RSpec.describe Text do
   end
   let(:subject) { Text.new(text) }
 
-  describe ".activities" do
+  describe '.activities' do
     let(:activities) do
-      ["met Nicolas Sarkozy", "to discuss a new austerity package"]
+      ['meet someone', 'discuss a new austerity package']
     end
 
-    it "returns all activities in the text string" do
-
+    it 'returns all activities in the text string' do
       expect(subject.activities).to eq(activities)
     end
 
-    context "for an empty text" do
-      it "returns an empty array" do
+    context 'for an empty text' do
+      it 'returns an empty array' do
         expect(subject.activities).to eq([])
       end
     end
