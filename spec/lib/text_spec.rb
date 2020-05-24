@@ -16,10 +16,11 @@ RSpec.describe Text do
     end
 
     it 'returns all activities in the text string' do
-      expect(subject.activities).to eq(activities)
+      expect(subject.activities).to match_array(activities)
     end
 
     context 'for an empty text' do
+      let(:text) { nil }
       it 'returns an empty array' do
         expect(subject.activities).to eq([])
       end
