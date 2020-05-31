@@ -1,6 +1,6 @@
 class NlpPipeline
   def initialize
-    @@pipeline ||= StanfordCoreNLP.load(:tokenize, :ssplit, :parse, :pos, :lemma)
+    @@pipeline ||= StanfordCoreNLP.load(:tokenize, :ssplit, :parse, :pos, :lemma, :ner, :dcoref)
     @features = []
   end
 

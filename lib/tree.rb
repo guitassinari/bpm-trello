@@ -1,17 +1,20 @@
+# frozen_string_literal: true
+
 class Tree
-  VERB_PHRASE = 'VP'.freeze
-  NOUN_PHRASE = 'NP'.freeze
-  VERB = 'VB'.freeze
-  VERB_PAST_TENSE = 'VBD'.freeze
-  VERB_PAST_PARTICIPLES = 'VBN'.freeze
-  VERB_GERUND = 'VBG'.freeze
-  PROPER_NOUN = 'NNP'.freeze
+  VERB_PHRASE = 'VP'
+  NOUN_PHRASE = 'NP'
+  VERB = 'VB'
+  VERB_PAST_TENSE = 'VBD'
+  VERB_PAST_PARTICIPLES = 'VBN'
+  VERB_GERUND = 'VBG'
+  PROPER_NOUN = 'NNP'
+
   def initialize(tree)
     @tree = tree
   end
 
   def verb_phrase_with_noun?
-    verb_phrase? && second_child.noun_phrase?
+    verb_phrase? && second_child_is_noun_phrase?
   end
 
   def verb_phrase?
@@ -23,7 +26,8 @@ class Tree
   end
 
   def verb?
-    [VERB, VERB_PAST_TENSE, VERB_PAST_PARTICIPLES, VERB_GERUND].include?(label_value)
+    [VERB, VERB_PAST_TENSE, VERB_PAST_PARTICIPLES, VERB_GERUND]
+      .include?(label_value)
   end
 
   def proper_noun?
@@ -57,8 +61,11 @@ class Tree
     end
   end
 
-  def second_child
-    Tree.new(@tree.children[1])
+  def second_child_is_noun_phrase?
+    second_child = @tree.children[1]
+    return false if second_child.nil?
+
+    Tree.new(second_child).noun_phrase?
   end
 
   def verb_phrase_and_noun_phrase
@@ -70,6 +77,7 @@ class Tree
     each_subtree do |subtree|
       verb = subtree if subtree.verb?
       noun_phrase = subtree if subtree.noun_phrase?
+      binding.pry
       break if verb.present? && noun_phrase.present?
     end
 
@@ -77,7 +85,7 @@ class Tree
   end
 
   def lemma_string
-    Text.new(to_s).lemmas
+    Text.new(to_s).lemmas.join(' ')
   end
 
   def generalized_string

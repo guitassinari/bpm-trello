@@ -1,31 +1,49 @@
+# frozen_string_literal: true
+
 class Text
   def initialize(string)
     @string = string || ''
   end
 
-  def sentences_original_texts
-    sentences.map(&:original_text)
+  def to_s
+    annotated_text.to_s
   end
 
-  def sentences_parts_of_speech
-    sentences.map(&:parts_of_speech)
+  def coreference_chain
+    CorefChainMap.new(nlp_coref_chain)
+  end
+
+  def parts_of_speech
+    sentences_objects.map(&:parts_of_speech).flatten
   end
 
   def lemmas
-    tokens.map(&:lemma).join(' ')
+    tokens.map(&:lemma)
   end
 
   def tokens
-    sentences.map(&:tokens).flatten
+    sentences_objects.map(&:tokens).flatten
   end
 
   def activities
-    sentences.map(&:activities_phrases).flatten
+    sentences_objects.map(&:activities_phrases).flatten
+  end
+
+  def sentences
+    sentences_objects.map(&:original_text)
+  end
+
+  def send_nlp(method, annotation = false)
+    if annotation
+      return annotated_text.get(method)
+    end
+
+    return annotated_text.send(method)
   end
 
   private
-  
-  def sentences
+
+  def sentences_objects
     @sentences ||= begin
       acc = []
       each_nlp_sentence do |sent|
@@ -33,6 +51,10 @@ class Text
       end
       acc
     end
+  end
+
+  def nlp_coref_chain
+    annotated_text.get(:coref_chain)
   end
 
   def each_nlp_sentence

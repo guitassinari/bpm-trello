@@ -34,7 +34,7 @@ class Sentence
   end
 
   def each_token
-    nlp_tokens.each { |token| Token.new(yield(token)) }
+    nlp_tokens.each { |token| yield(Token.new(token)) }
   end
 
   def nlp_tokens
@@ -43,19 +43,5 @@ class Sentence
 
   def nlp_tree
     @core_sentence.get(:tree)
-  end
-end
-
-class Token
-  def initialize(nlp_token)
-    @nlp_token = nlp_token
-  end
-
-  def part_of_speech_tag
-    @nlp_token.get(:part_of_speech).to_s
-  end
-
-  def lemma
-    @nlp_token.get(:lemma).to_s
   end
 end
