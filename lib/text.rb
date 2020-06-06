@@ -26,7 +26,8 @@ class Text
   end
 
   def activities
-    sentences_objects.map(&:activities_phrases).flatten
+    acts = sentences_objects.map(&:activities_phrases).flatten
+    unique_activities_phrases(acts)
   end
 
   def sentences
@@ -34,17 +35,35 @@ class Text
   end
 
   def send_nlp(method, annotation = false)
-    if annotation
-      return annotated_text.get(method)
-    end
+    return annotated_text.get(method) if annotation
 
-    return annotated_text.send(method)
+    annotated_text.send(method)
+  end
+
+  def preprocessed
+    preprocessed_string = TextPreprocessor.new(to_s)
+                                          .substitute_coreferences
+                                          .remove_determiners
+                                          .to_s
+    Text.new(preprocessed_string)
   end
 
   private
 
+  def unique_activities_phrases(activities_phrases)
+    activities_phrases.reverse.each do |phrase|
+      activities_phrases.reverse.each do |other_phrase|
+        next unless other_phrase != phrase
+
+        activities_phrases.delete(phrase) if other_phrase.include?(phrase)
+      end
+    end
+
+    activities_phrases.uniq
+  end
+
   def sentences_objects
-    @sentences ||= begin
+    @sentences_objects ||= begin
       acc = []
       each_nlp_sentence do |sent|
         acc.push(Sentence.new(sent))
@@ -71,4 +90,3 @@ class Text
     end
   end
 end
-

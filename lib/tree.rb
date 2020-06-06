@@ -8,6 +8,7 @@ class Tree
   VERB_PAST_PARTICIPLES = 'VBN'
   VERB_GERUND = 'VBG'
   PROPER_NOUN = 'NNP'
+  PREPOSITION_PHRASE = 'PP'
 
   def initialize(tree)
     @tree = tree
@@ -19,6 +20,10 @@ class Tree
 
   def verb_phrase?
     label_value == VERB_PHRASE
+  end
+
+  def preposition_phrase?
+    label_value == PREPOSITION_PHRASE
   end
 
   def leaf?
@@ -77,7 +82,6 @@ class Tree
     each_subtree do |subtree|
       verb = subtree if subtree.verb?
       noun_phrase = subtree if subtree.noun_phrase?
-      binding.pry
       break if verb.present? && noun_phrase.present?
     end
 

@@ -3,16 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Text do
-  let(:text) do
-    'Alessandro, please review this pull-request so that we can get it to QA.
-    Sure. I will review it today.
-    Before reviewing, let all tests pass.'
-  end
-  let(:subject) { Text.new(text) }
+  let(:text) { file_fixture('text.txt').read }
+  let(:subject) { Text.new(text).preprocessed }
 
   describe '.activities' do
     let(:activities) do
-      ['review pull-request', 'get pull-pequest to QA']
+      ['review pull-request', 'get pull-request to QA']
     end
 
     it 'returns all activities in the text string' do
@@ -29,8 +25,7 @@ RSpec.describe Text do
 
   describe '.sentences' do
     let(:sentences) do
-      ['Angela Merkel met Nicolas Sarkozy on January 25th in Berlin to discuss a new austerity package.',
-       'Sarkozy looked pleased, but Merkel was dismayed.']
+      text.split('.').map { |s| s.strip + '.' }
     end
 
     it 'returns all text sentences' do
@@ -40,10 +35,10 @@ RSpec.describe Text do
 
   describe '.lemmas' do
     let(:lemmas) do
-      ['Angela', 'Merkel', 'meet', 'Nicolas', 'Sarkozy', 'on', 'January',
-       '25th', 'in', 'Berlin', 'to', 'discuss', 'a', 'new', 'austerity',
-       'package', '.', 'Sarkozy', 'look', 'pleased', ',', 'but', 'Merkel', 'be',
-       'dismayed', '.']
+      ['Alessandro', ',', 'please', 'review', 'this', 'pull-request', 'so',
+       'that', 'we', 'can', 'get', 'it', 'to', 'QA', '.', 'sure', '.', 'I',
+       'will', 'review', 'it', 'today', '.', 'before', 'review', 'it', ',',
+       'let', 'all', 'test', 'pass', '.']
     end
 
     it 'returns all text sentences' do

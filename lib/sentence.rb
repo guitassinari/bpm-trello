@@ -16,7 +16,8 @@ class Sentence
   end
 
   def activities_phrases
-    @activities_phrases ||= TreeActivitiesIdentifier.new(tree).activities_phrases
+    @activities_phrases ||=
+      TreeActivitiesIdentifier.new(tree).activities_phrases
   end
 
   def tokens

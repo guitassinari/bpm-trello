@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe TextPreprocessor do
   let(:text) do
-    'Alessandro, please review this pull-request so that we can get it to QA. Sure. I will review it today. Before reviewing it, let all tests pass.'
+    file_fixture('text.txt').read
   end
   let(:subject) { described_class.new(Text.new(text)) }
   
@@ -15,6 +15,16 @@ RSpec.describe TextPreprocessor do
 
     it 'works' do
       expect(subject.substitute_coreferences).to eq(expected_text)
+    end
+  end
+
+  describe ".remove_teterminers" do
+    let(:expected_text) do
+      'Alessandro, please review pull-request so that we can get it to QA. Sure. Alessandro will review it today. Before reviewing it, let tests pass.'
+    end
+
+    it 'works' do
+      expect(subject.remove_determiners).to eq(expected_text)
     end
   end
 end

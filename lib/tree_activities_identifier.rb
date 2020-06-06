@@ -6,22 +6,10 @@ class TreeActivitiesIdentifier
   end
 
   def activities_phrases
-    @activities_phrases ||= unique_activities_phrases
+    @activities_phrases ||= activities_phrases_candidates
   end
 
   private
-
-  def unique_activities_phrases
-    activities_phrases_candidates.reverse.each do |phrase|
-      activities_phrases_candidates.reverse.each do |other_phrase|
-        next if other_phrase == phrase
-
-        if other_phrase.include?(phrase)
-          activities_phrases_candidates.delete(other_phrase)
-        end
-      end
-    end
-  end
 
   def activities_phrases_candidates
     @activities_phrases_candidates ||=
@@ -49,14 +37,21 @@ class ActivityPhraseBuilder
 
     verb = nil
     noun_phrase = nil
+    preposition = nil
 
     @tree.subtrees.each do |subtree|
       verb = subtree if subtree.verb?
       noun_phrase = subtree if subtree.noun_phrase?
-      binding.pry if noun_phrase
-      break if verb.present? && noun_phrase.present?
+      preposition = subtree if subtree.preposition_phrase?
+      break if verb.present? && noun_phrase.present? && preposition.present?
     end
 
-    verb.lemma_string + ' ' + noun_phrase.generalized_string
+    phrase = verb.lemma_string + ' ' + noun_phrase.generalized_string
+
+    if preposition.present?
+      phrase += ' ' + preposition.lemma_string
+    end
+
+    phrase
   end
 end
