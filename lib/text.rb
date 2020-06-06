@@ -1,26 +1,42 @@
 # frozen_string_literal: true
 
+# @author Guilherme Tassinari
+# Main class for annotating text using the Stanford NLP parser.
 class Text
+  # @param [String] string string containing the text to be analyzed / parsed by the stanford NLP parser
   def initialize(string)
     @string = string || ''
   end
 
+  # Returns the original text as a string
   def to_s
     annotated_text.to_s
   end
 
+  # Returns a CorefChainMap instance wrapping the Stanford NLP CoreChain for
+  # the current text
+  # @see https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/CorefChain.html
+  # @see CorefChainMap
+  # @return [CorefChainMap] a Coreference Chain Map wrapper
   def coreference_chain
     CorefChainMap.new(nlp_coref_chain)
   end
 
+  # Gets all part-of-speech tags of the current text, in the order they appear
+  # @return [Array<String>] list of all pos tags of the text
   def parts_of_speech
-    sentences_objects.map(&:parts_of_speech).flatten
+    tokens.map(&:part_of_speech_tag)
   end
 
+  # Gets all lemmas of the current text, in the order they appear
+  # @return [Array<String>] list of all lemmas of the text
   def lemmas
     tokens.map(&:lemma)
   end
 
+  # List of tokens in the text in the form of Stanford NLP token wrappers
+  # @see Token
+  # @return [Array<Token>] list of all tokens of the text
   def tokens
     sentences_objects.map(&:tokens).flatten
   end
@@ -40,6 +56,10 @@ class Text
     annotated_text.send(method)
   end
 
+  # Returns a new instance of Text, where it's inner text has been
+  # preprocessed by {TextProcessor}
+  # @see TextProcessor
+  # @return Text 
   def preprocessed
     preprocessed_string = TextPreprocessor.new(to_s)
                                           .substitute_coreferences

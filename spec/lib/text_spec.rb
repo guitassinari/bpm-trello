@@ -51,4 +51,10 @@ RSpec.describe Text do
       expect(subject.to_s).to eq(text)
     end
   end
+
+  describe '.parts_of_speech' do
+    it 'yeah' do
+      expect(subject.parts_of_speech).to eq([])
+    end
+  end
 end
