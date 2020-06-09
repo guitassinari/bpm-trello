@@ -59,7 +59,7 @@ class Text
   # Returns a new instance of Text, where it's inner text has been
   # preprocessed by {TextProcessor}
   # @see TextProcessor
-  # @return Text 
+  # @return Text
   def preprocessed
     preprocessed_string = TextPreprocessor.new(to_s)
                                           .substitute_coreferences

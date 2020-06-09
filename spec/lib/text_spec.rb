@@ -4,11 +4,11 @@ require 'rails_helper'
 
 RSpec.describe Text do
   let(:text) { file_fixture('text.txt').read }
-  let(:subject) { Text.new(text).preprocessed }
+  let(:subject) { Text.new(text) }
 
   describe '.activities' do
     let(:activities) do
-      ['review pull-request', 'get pull-request to QA']
+      ['review it', 'get it to QA']
     end
 
     it 'returns all activities in the text string' do
@@ -53,8 +53,14 @@ RSpec.describe Text do
   end
 
   describe '.parts_of_speech' do
+    let(:expected_pos) do
+      ['NNP', ',', 'VB', 'NN', 'DT', 'JJ', 'IN', 'IN', 'PRP', 'MD', 'VB', 'PRP',
+       'TO', 'NNP', '.', 'JJ', '.', 'PRP', 'MD', 'VB', 'PRP', 'NN', '.', 'IN',
+       'VBG', 'PRP', ',', 'VB', 'DT', 'NNS', 'VBP', '.']
+    end
+
     it 'yeah' do
-      expect(subject.parts_of_speech).to eq([])
+      expect(subject.parts_of_speech).to eq(expected_pos)
     end
   end
 end

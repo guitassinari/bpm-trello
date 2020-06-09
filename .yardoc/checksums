@@ -1,4 +1,4 @@
-lib/text.rb bd81d2b49edf2c4c41afea48710c369021db34f7
+lib/text.rb 48cecb19a69da3b2272bd53efe89a8a42453cc86
 lib/tree.rb 1077fa4705ded68542846bca30b7a9b4349d4c38
 lib/token.rb 61e6f103513aa9a44b847055ccedd9e18f28cffe
 lib/mention.rb 08934f7701bf8efbc57c4cea59d46dddf507d526
@@ -7,5 +7,5 @@ lib/coref_chain.rb 8df999257e9dcc0d578283ece3c5c69ed9862a35
 lib/nlp_wrapper.rb 9463e9df559e6243ea76ae591ef510e62f3dd0f1
 lib/nlp_pipeline.rb 2ec8678797b7de1de65633e815a13d3f6a3405e6
 lib/coref_chain_map.rb 930623c235e5cfb46c826f541137bb8c258c05c1
-lib/text_preprocessor.rb 15c7edfa115de8d678fe2d3aa97610669380ccb7
+lib/text_preprocessor.rb e01343ce6f0f22e02f4fe6eb6dd99f598298ab78
 lib/tree_activities_identifier.rb 7ed3f75d0a87be0da37ea3aab16ffa43b7a64de2
