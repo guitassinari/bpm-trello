@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe Text do
+RSpec.describe StanfordCore::Text do
   let(:text) { file_fixture('text.txt').read }
-  let(:subject) { Text.new(text) }
+  let(:subject) { described_class.new(text) }
 
   describe '.activities' do
     let(:activities) do
