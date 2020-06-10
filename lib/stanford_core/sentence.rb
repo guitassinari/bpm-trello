@@ -31,11 +31,11 @@ module StanfordCore
       end
     end
 
-    private
-
     def tree
       @tree ||= Tree.new(nlp_tree)
     end
+
+    private
 
     def each_token
       nlp_tokens.each { |token| yield(Token.new(token)) }

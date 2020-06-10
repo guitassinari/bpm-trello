@@ -69,6 +69,16 @@ module StanfordCore
       Text.new(preprocessed_string)
     end
 
+    def sentences_objects
+      @sentences_objects ||= begin
+        acc = []
+        each_nlp_sentence do |sent|
+          acc.push(Sentence.new(sent))
+        end
+        acc
+      end
+    end
+
     private
 
     def unique_activities_phrases(activities_phrases)
@@ -81,16 +91,6 @@ module StanfordCore
       end
 
       activities_phrases.uniq
-    end
-
-    def sentences_objects
-      @sentences_objects ||= begin
-        acc = []
-        each_nlp_sentence do |sent|
-          acc.push(Sentence.new(sent))
-        end
-        acc
-      end
     end
 
     def nlp_coref_chain
