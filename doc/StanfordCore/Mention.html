@@ -101,7 +101,27 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>A wrapper for Stanford CoreNlp mention class</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/Mention.html" target="_parent" title="https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/Mention.html">https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/Mention.html</a></li>
+    
+      <li><a href="https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/CorefChain.CorefMention.html" target="_parent" title="https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/CorefChain.CorefMention.html">https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/CorefChain.CorefMention.html</a></li>
+    
+  </ul>
+
+</div>
   
     <h2>
       Constant Summary
@@ -154,7 +174,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns true if mention is of type NOMINAL.</p>
+</div></span>
   
 </li>
 
@@ -176,7 +198,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns true if mention is of type PROPER.</p>
+</div></span>
   
 </li>
 
@@ -198,7 +222,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the mention&#39;s original text.</p>
+</div></span>
   
 </li>
 
@@ -220,7 +246,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the type of the mention, as defined by <a href="https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/Dictionaries.MentionType.html">nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/Dictionaries.MentionType.html</a>.</p>
+</div></span>
   
 </li>
 
@@ -263,6 +291,8 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Returns true if mention is of type NOMINAL</p>
+
 
   </div>
 </div>
@@ -288,12 +318,12 @@
       <pre class="lines">
 
 
-13
-14
-15</pre>
+17
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stanford_core/mention.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/stanford_core/mention.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nominal?'>nominal?</span>
   <span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="#NOMINAL-constant" title="StanfordCore::Mention::NOMINAL (constant)">NOMINAL</a></span></span>
@@ -315,6 +345,8 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Returns true if mention is of type PROPER</p>
+
 
   </div>
 </div>
@@ -340,12 +372,12 @@
       <pre class="lines">
 
 
-9
-10
-11</pre>
+12
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stanford_core/mention.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/stanford_core/mention.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_proper?'>proper?</span>
   <span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="#PROPER-constant" title="StanfordCore::Mention::PROPER (constant)">PROPER</a></span></span>
@@ -364,18 +396,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the mention&#39;s original text</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-21
-22
-23</pre>
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stanford_core/mention.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/stanford_core/mention.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_send_nlp'>send_nlp</span><span class='lparen'>(</span><span class='symbol'>:mention_span</span><span class='rparen'>)</span>
@@ -394,18 +437,36 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the type of the mention, as defined by <a href="https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/Dictionaries.MentionType.html">nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/Dictionaries.MentionType.html</a>\</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/Dictionaries.MentionType.html" target="_parent" title="https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/Dictionaries.MentionType.html">https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/Dictionaries.MentionType.html</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-17
-18
-19</pre>
+23
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stanford_core/mention.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/stanford_core/mention.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_type'>type</span>
   <span class='id identifier rubyid_send_nlp'>send_nlp</span><span class='lparen'>(</span><span class='symbol'>:mention_type</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -420,7 +481,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Jun  9 20:32:31 2020 by
+  Generated on Wed Jun 10 21:07:56 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.2).
 </div>

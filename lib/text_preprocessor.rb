@@ -79,6 +79,6 @@ class TextPreprocessor
   end
 
   def find_coref(id)
-    processed_text.coreference_chain.coref_chain_by_id(id)
+    processed_text.coreference_chain.coref_set_by_id(id)
   end
 end

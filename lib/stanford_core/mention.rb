@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-
 module StanfordCore
   # A wrapper for Stanford CoreNlp mention class
   # @see https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/Mention.html
+  # @see https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/CorefChain.CorefMention.html
   class Mention < NlpWrapper
     PROPER = 'PROPER'
     NOMINAL = 'NOMINAL'

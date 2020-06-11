@@ -302,9 +302,7 @@
 51
 52
 53
-54
-55
-56</pre>
+54</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/tree_activities_identifier.rb', line 35</span>
@@ -325,9 +323,7 @@
 
   <span class='id identifier rubyid_phrase'>phrase</span> <span class='op'>=</span> <span class='id identifier rubyid_verb'>verb</span><span class='period'>.</span><span class='id identifier rubyid_lemma_string'>lemma_string</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> </span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_noun_phrase'>noun_phrase</span><span class='period'>.</span><span class='id identifier rubyid_generalized_string'>generalized_string</span>
 
-  <span class='kw'>if</span> <span class='id identifier rubyid_preposition'>preposition</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
-    <span class='id identifier rubyid_phrase'>phrase</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> </span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_preposition'>preposition</span><span class='period'>.</span><span class='id identifier rubyid_lemma_string'>lemma_string</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_phrase'>phrase</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> </span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_preposition'>preposition</span><span class='period'>.</span><span class='id identifier rubyid_lemma_string'>lemma_string</span>  <span class='kw'>if</span> <span class='id identifier rubyid_preposition'>preposition</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
 
   <span class='id identifier rubyid_phrase'>phrase</span>
 <span class='kw'>end</span></pre>
@@ -341,7 +337,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Jun  9 20:32:31 2020 by
+  Generated on Wed Jun 10 21:07:56 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.2).
 </div>

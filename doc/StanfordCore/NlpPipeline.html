@@ -87,6 +87,11 @@
   
   
   
+  <dl>
+      <dt>Includes:</dt>
+      <dd>Singleton</dd>
+  </dl>
+  
   
 
   
@@ -194,7 +199,8 @@
     </ul>
   
 
-<div id="constructor_details" class="method_details_list">
+
+  <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
@@ -223,8 +229,6 @@
       <pre class="lines">
 
 
-9
-10
 11
 12
 13
@@ -232,10 +236,12 @@
 15
 16
 17
-18</pre>
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stanford_core/nlp_pipeline.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/stanford_core/nlp_pipeline.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
   <span class='ivar'>@pipeline</span> <span class='op'>=</span> <span class='const'>StanfordCoreNLP</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='symbol'>:tokenize</span><span class='comma'>,</span>
@@ -330,14 +336,14 @@
       <pre class="lines">
 
 
-24
-25
 26
 27
-28</pre>
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stanford_core/nlp_pipeline.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/stanford_core/nlp_pipeline.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_annotate_text'>annotate_text</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='const'>StanfordCoreNLP</span><span class='op'>::</span><span class='const'>Annotation</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='rparen'>)</span>
@@ -354,7 +360,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Jun  9 20:32:31 2020 by
+  Generated on Wed Jun 10 21:07:56 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.2).
 </div>

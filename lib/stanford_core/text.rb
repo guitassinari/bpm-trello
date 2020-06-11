@@ -17,10 +17,10 @@ module StanfordCore
     # Returns a CorefChainMap instance wrapping the Stanford NLP CoreChain for
     # the current text
     # @see https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/CorefChain.html
-    # @see CorefChainMap
-    # @return [CorefChainMap] a Coreference Chain Map wrapper
+    # @see StanfordCore::CorefChainMap
+    # @return [StanfordCore::CorefChainMap] a Coreference Chain Map wrapper
     def coreference_chain
-      CorefChainMap.new(nlp_coref_chain)
+      CorefChain.new(nlp_coref_chain)
     end
 
     # Gets all part-of-speech tags of the current text, in the order they appear
@@ -36,8 +36,8 @@ module StanfordCore
     end
 
     # List of tokens in the text in the form of Stanford NLP token wrappers
-    # @see Token
-    # @return [Array<Token>] list of all tokens of the text
+    # @see StanfordCore::Token
+    # @return [Array<StanfordCore::Token>] list of all tokens of the text
     def tokens
       sentences_objects.map(&:tokens).flatten
     end
@@ -47,6 +47,8 @@ module StanfordCore
       unique_activities_phrases(acts)
     end
 
+    # list of text's sentences as strings
+    # @return [Array<String>] sentences strings
     def sentences
       sentences_objects.map(&:original_text)
     end
@@ -58,9 +60,9 @@ module StanfordCore
     end
 
     # Returns a new instance of Text, where it's inner text has been
-    # preprocessed by {TextProcessor}
-    # @see TextProcessor
-    # @return Text
+    # preprocessed by {TextPreprocessor}
+    # @see TextPreprocessor
+    # @return [StanfordCore::Text] proprocessed text instance
     def preprocessed
       preprocessed_string = TextPreprocessor.new(to_s)
                                             .substitute_coreferences
@@ -69,6 +71,9 @@ module StanfordCore
       Text.new(preprocessed_string)
     end
 
+    # all sentences of the text, in the order they're found
+    # @see StanfordCore::Sentence
+    # @return [Array<StanfordCore::Sentence>] list of sentences
     def sentences_objects
       @sentences_objects ||= begin
         acc = []

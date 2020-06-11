@@ -48,9 +48,7 @@ class ActivityPhraseBuilder
 
     phrase = verb.lemma_string + ' ' + noun_phrase.generalized_string
 
-    if preposition.present?
-      phrase += ' ' + preposition.lemma_string
-    end
+    phrase += ' ' + preposition.lemma_string  if preposition.present?
 
     phrase
   end

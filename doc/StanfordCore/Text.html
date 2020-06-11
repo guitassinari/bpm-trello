@@ -166,7 +166,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#coreference_chain-instance_method" title="#coreference_chain (instance method)">#<strong>coreference_chain</strong>  &#x21d2; CorefChainMap </a>
+      <a href="#coreference_chain-instance_method" title="#coreference_chain (instance method)">#<strong>coreference_chain</strong>  &#x21d2; StanfordCore::CorefChainMap </a>
     
 
     
@@ -264,7 +264,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#preprocessed-instance_method" title="#preprocessed (instance method)">#<strong>preprocessed</strong>  &#x21d2; Object </a>
+      <a href="#preprocessed-instance_method" title="#preprocessed (instance method)">#<strong>preprocessed</strong>  &#x21d2; StanfordCore::Text </a>
     
 
     
@@ -279,7 +279,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Returns a new instance of Text, where it&#39;s inner text has been preprocessed by TextProcessor.</p>
+<p>Returns a new instance of Text, where it&#39;s inner text has been preprocessed by <span class='object_link'><a href="../TextPreprocessor.html" title="TextPreprocessor (class)">TextPreprocessor</a></span>.</p>
 </div></span>
   
 </li>
@@ -310,7 +310,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#sentences-instance_method" title="#sentences (instance method)">#<strong>sentences</strong>  &#x21d2; Object </a>
+      <a href="#sentences-instance_method" title="#sentences (instance method)">#<strong>sentences</strong>  &#x21d2; Array&lt;String&gt; </a>
     
 
     
@@ -324,7 +324,33 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>list of text&#39;s sentences as strings.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sentences_objects-instance_method" title="#sentences_objects (instance method)">#<strong>sentences_objects</strong>  &#x21d2; Array&lt;StanfordCore::Sentence&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>all sentences of the text, in the order they&#39;re found.</p>
+</div></span>
   
 </li>
 
@@ -356,7 +382,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#tokens-instance_method" title="#tokens (instance method)">#<strong>tokens</strong>  &#x21d2; Array&lt;Token&gt; </a>
+      <a href="#tokens-instance_method" title="#tokens (instance method)">#<strong>tokens</strong>  &#x21d2; Array&lt;StanfordCore::Token&gt; </a>
     
 
     
@@ -486,7 +512,7 @@
       <div class="method_details ">
   <h3 class="signature " id="coreference_chain-instance_method">
   
-    #<strong>coreference_chain</strong>  &#x21d2; <tt><span class='object_link'><a href="CorefChainMap.html" title="StanfordCore::CorefChainMap (class)">CorefChainMap</a></span></tt> 
+    #<strong>coreference_chain</strong>  &#x21d2; <tt>StanfordCore::CorefChainMap</tt> 
   
 
   
@@ -508,7 +534,7 @@
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="CorefChainMap.html" title="StanfordCore::CorefChainMap (class)">CorefChainMap</a></span></tt>)</span>
+        <span class='type'>(<tt>StanfordCore::CorefChainMap</tt>)</span>
       
       
       
@@ -526,7 +552,7 @@
     
       <li><a href="https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/CorefChain.html" target="_parent" title="https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/CorefChain.html">https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/CorefChain.html</a></li>
     
-      <li><span class='object_link'><a href="CorefChainMap.html" title="StanfordCore::CorefChainMap (class)">CorefChainMap</a></span></li>
+      <li>CorefChainMap</li>
     
   </ul>
 
@@ -544,7 +570,7 @@
       <pre class="code"><span class="info file"># File 'lib/stanford_core/text.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_coreference_chain'>coreference_chain</span>
-  <span class='const'><span class='object_link'><a href="CorefChainMap.html" title="StanfordCore::CorefChainMap (class)">CorefChainMap</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="NlpWrapper.html#initialize-instance_method" title="StanfordCore::NlpWrapper#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_nlp_coref_chain'>nlp_coref_chain</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="CorefChain.html" title="StanfordCore::CorefChain (class)">CorefChain</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="NlpWrapper.html#initialize-instance_method" title="StanfordCore::NlpWrapper#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_nlp_coref_chain'>nlp_coref_chain</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -672,7 +698,7 @@
       <div class="method_details ">
   <h3 class="signature " id="preprocessed-instance_method">
   
-    #<strong>preprocessed</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>preprocessed</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="StanfordCore::Text (class)">StanfordCore::Text</a></span></tt> 
   
 
   
@@ -681,7 +707,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a new instance of Text, where it&#39;s inner text has been preprocessed by TextProcessor</p>
+<p>Returns a new instance of Text, where it&#39;s inner text has been preprocessed by <span class='object_link'><a href="../TextPreprocessor.html" title="TextPreprocessor (class)">TextPreprocessor</a></span></p>
 
 
   </div>
@@ -694,13 +720,13 @@
     <li>
       
       
-        <span class='type'></span>
+        <span class='type'>(<tt><span class='object_link'><a href="" title="StanfordCore::Text (class)">StanfordCore::Text</a></span></tt>)</span>
       
       
       
-        
+        &mdash;
         <div class='inline'>
-<p>Text</p>
+<p>proprocessed text instance</p>
 </div>
       
     </li>
@@ -710,7 +736,7 @@
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li>TextProcessor</li>
+      <li><span class='object_link'><a href="../TextPreprocessor.html" title="TextPreprocessor (class)">TextPreprocessor</a></span></li>
     
   </ul>
 
@@ -720,16 +746,16 @@
       <pre class="lines">
 
 
-64
-65
 66
 67
 68
 69
-70</pre>
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stanford_core/text.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/stanford_core/text.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_preprocessed'>preprocessed</span>
   <span class='id identifier rubyid_preprocessed_string'>preprocessed_string</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../TextPreprocessor.html" title="TextPreprocessor (class)">TextPreprocessor</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../TextPreprocessor.html#initialize-instance_method" title="TextPreprocessor#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -758,14 +784,14 @@
       <pre class="lines">
 
 
-54
-55
 56
 57
-58</pre>
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stanford_core/text.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/stanford_core/text.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_send_nlp'>send_nlp</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_annotation'>annotation</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_annotated_text'>annotated_text</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_annotation'>annotation</span>
@@ -780,27 +806,134 @@
       <div class="method_details ">
   <h3 class="signature " id="sentences-instance_method">
   
-    #<strong>sentences</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>sentences</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>list of text&#39;s sentences as strings</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>sentences strings</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-50
-51
-52</pre>
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/stanford_core/text.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/stanford_core/text.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sentences'>sentences</span>
   <span class='id identifier rubyid_sentences_objects'>sentences_objects</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:original_text</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sentences_objects-instance_method">
+  
+    #<strong>sentences_objects</strong>  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="Sentence.html" title="StanfordCore::Sentence (class)">StanfordCore::Sentence</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>all sentences of the text, in the order they&#39;re found</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="Sentence.html" title="StanfordCore::Sentence (class)">StanfordCore::Sentence</a></span>&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>list of sentences</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="Sentence.html" title="StanfordCore::Sentence (class)">Sentence</a></span></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+77
+78
+79
+80
+81
+82
+83
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/stanford_core/text.rb', line 77</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sentences_objects'>sentences_objects</span>
+  <span class='ivar'>@sentences_objects</span> <span class='op'>||=</span> <span class='kw'>begin</span>
+    <span class='id identifier rubyid_acc'>acc</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_each_nlp_sentence'>each_nlp_sentence</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_sent'>sent</span><span class='op'>|</span>
+      <span class='id identifier rubyid_acc'>acc</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Sentence.html" title="StanfordCore::Sentence (class)">Sentence</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="NlpWrapper.html#initialize-instance_method" title="StanfordCore::NlpWrapper#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_sent'>sent</span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_acc'>acc</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -851,7 +984,7 @@
       <div class="method_details ">
   <h3 class="signature " id="tokens-instance_method">
   
-    #<strong>tokens</strong>  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="Token.html" title="StanfordCore::Token (class)">Token</a></span>&gt;</tt> 
+    #<strong>tokens</strong>  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="Token.html" title="StanfordCore::Token (class)">StanfordCore::Token</a></span>&gt;</tt> 
   
 
   
@@ -873,7 +1006,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="Token.html" title="StanfordCore::Token (class)">Token</a></span>&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="Token.html" title="StanfordCore::Token (class)">StanfordCore::Token</a></span>&gt;</tt>)</span>
       
       
       
@@ -919,7 +1052,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Jun  9 20:32:31 2020 by
+  Generated on Wed Jun 10 21:07:56 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.2).
 </div>

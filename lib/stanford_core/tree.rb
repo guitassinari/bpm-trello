@@ -63,7 +63,7 @@ module StanfordCore
         each_leave do |leaf|
           list.push(leaf.to_s)
         end
-        list.join('')
+        list.join(' ')
       end
     end
 

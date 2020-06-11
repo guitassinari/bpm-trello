@@ -1,23 +1,21 @@
 # frozen_string_literal: true
 
 module StanfordCore
+  # Wrapper for the CorefChain Stanford CoreNLP Java class binding
+  # @see https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/CorefChain.html
   class CorefChain < NlpWrapper
-    def mention_map
-      send_nlp(:get_mention_map)
+    # gets a coref mention set by it's ID
+    # @see https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/dcoref/CorefChain.html#getMentionMap--
+    # @return [StanfordCore::CorefMentionSet] coref mention set of given id
+    def coref_set_by_id(id)
+      nlp_coref_set = send_nlp(:get, id)
+      CorefMentionSet.new(nlp_coref_set)
     end
 
-    def representative_mention
-      Mention.new(send_nlp(:get_representative_mention))
-    end
-
-    def mention_list
-      @mention_list ||= begin
-        mentions = []
-        send_nlp(:get_mentions_in_textual_order).each do |mention|
-          mentions.push(Mention.new(mention))
-        end
-        mentions
-      end
+    # The size of the coref chain
+    # @return [Number] coref chain size
+    def length
+      send_nlp(:size)
     end
   end
 end
