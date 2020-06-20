@@ -63,7 +63,7 @@ module StanfordCore
         each_leave do |leaf|
           list.push(leaf.to_s)
         end
-        list.join(' ')
+        list.join(' ').gsub(' .', '.').gsub(' ,', ',')
       end
     end
 
@@ -72,21 +72,6 @@ module StanfordCore
       return false if second_child.nil?
 
       Tree.new(second_child).noun_phrase?
-    end
-
-    def verb_phrase_and_noun_phrase
-      return '' unless verb_phrase?
-
-      verb = nil
-      noun_phrase = nil
-
-      each_subtree do |subtree|
-        verb = subtree if subtree.verb?
-        noun_phrase = subtree if subtree.noun_phrase?
-        break if verb.present? && noun_phrase.present?
-      end
-
-      verb.lemma_string + ' ' + noun_phrase.generalized_string
     end
 
     def lemma_string

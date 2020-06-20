@@ -42,11 +42,6 @@ module StanfordCore
       sentences_objects.map(&:tokens).flatten
     end
 
-    def activities
-      acts = sentences_objects.map(&:activities_phrases).flatten
-      unique_activities_phrases(acts)
-    end
-
     # list of text's sentences as strings
     # @return [Array<String>] sentences strings
     def sentences
@@ -86,17 +81,6 @@ module StanfordCore
 
     private
 
-    def unique_activities_phrases(activities_phrases)
-      activities_phrases.reverse.each do |phrase|
-        activities_phrases.reverse.each do |other_phrase|
-          next unless other_phrase != phrase
-
-          activities_phrases.delete(phrase) if other_phrase.include?(phrase)
-        end
-      end
-
-      activities_phrases.uniq
-    end
 
     def nlp_coref_chain
       annotated_text.get(:coref_chain)

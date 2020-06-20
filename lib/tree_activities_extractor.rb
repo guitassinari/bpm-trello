@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class TreeActivitiesIdentifier
+class TreeActivitiesExtractor
   def initialize(tree)
     @tree = tree
   end
 
   def activities_phrases
-    @activities_phrases ||= activities_phrases_candidates
+    @activities_phrases ||= activities_phrases_candidates.uniq
   end
 
   private

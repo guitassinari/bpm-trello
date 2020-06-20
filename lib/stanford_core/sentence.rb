@@ -2,7 +2,6 @@
 
 module StanfordCore
   # A wrapper for Stanford CoreNlp sentence class
-  # @see https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/ling/Sentence.html
   class Sentence < NlpWrapper
     # The sentence original unparsed text
     # @return [String] original sentence as string
@@ -37,11 +36,6 @@ module StanfordCore
     # @return [Array<String>] list of part of speech tags
     def parts_of_speech
       tokens.map(&:part_of_speech_tag)
-    end
-
-    def activities_phrases
-      @activities_phrases ||=
-        TreeActivitiesIdentifier.new(tree).activities_phrases.uniq
     end
 
     # list of tokens in the sentence

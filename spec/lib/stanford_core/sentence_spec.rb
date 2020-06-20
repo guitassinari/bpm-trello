@@ -34,13 +34,6 @@ RSpec.describe StanfordCore::Sentence do
     end
   end
 
-  describe '.activities_phrases' do
-    let(:expected_phrases) { ['get it to QA'] }
-    it 'returns activities phrases from the sentence' do
-      expect(subject.activities_phrases).to eq(expected_phrases)
-    end
-  end
-
   describe '.tokens' do
     it 'returns a list of all sentence tokens' do
       expect(subject.tokens.length).to eq(15)

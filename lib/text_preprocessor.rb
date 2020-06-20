@@ -75,7 +75,7 @@ class TextPreprocessor
   end
 
   def processed_text
-    Text.new(@processed_string)
+    StanfordCore::Text.new(@processed_string)
   end
 
   def find_coref(id)
