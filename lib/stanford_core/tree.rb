@@ -44,17 +44,6 @@ module StanfordCore
       label_value == NOUN_PHRASE
     end
 
-    # Includes self in the iteration
-    def each_subtree
-      @tree.each { |t| yield(Tree.new(t)) }
-    end
-
-    def each_child
-      @tree.children.each do |child|
-        yield(Tree.new(child))
-      end
-    end
-
     def to_s
       return @tree.to_s if leaf?
 
@@ -65,13 +54,6 @@ module StanfordCore
         end
         list.join(' ').gsub(' .', '.').gsub(' ,', ',')
       end
-    end
-
-    def second_child_is_noun_phrase?
-      second_child = @tree.children[1]
-      return false if second_child.nil?
-
-      Tree.new(second_child).noun_phrase?
     end
 
     def lemma_string
@@ -96,10 +78,6 @@ module StanfordCore
       @tree.to_s
     end
 
-    def label_value
-      @label_value ||= @tree.label.value
-    end
-
     def subtrees
       @subtrees ||= begin
         list = []
@@ -111,6 +89,28 @@ module StanfordCore
     end
 
     private
+
+    def each_child
+      @tree.children.each do |child|
+        yield(Tree.new(child))
+      end
+    end
+
+     # Includes self in the iteration
+    def each_subtree
+      @tree.each { |t| yield(Tree.new(t)) }
+    end
+
+    def second_child_is_noun_phrase?
+      second_child = @tree.children[1]
+      return false if second_child.nil?
+
+      Tree.new(second_child).noun_phrase?
+    end
+
+    def label_value
+      @label_value ||= @tree.label.value
+    end
 
     def each_leave
       leaves.each { |l| yield(Tree.new(l)) }
