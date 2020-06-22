@@ -12,18 +12,22 @@ module StanfordCore
     # sends a method call to the Java binding
     # @param [Symbol, String] method the method name to be called
     def send_nlp(method, *arguments, &block)
-      @nlp_proxy.send(:method_missing, method, *arguments, &block)
+      nlp_proxy.send(:method_missing, method, *arguments, &block)
     end
 
     # gets an annotation from the java binding. Usually used to get other
     # Java CoreNlp bindings
     # @param [Symbol, String] annotation the annotation to be gotten
     def get_annotation(annotation)
-      @nlp_proxy.get(annotation)
+      nlp_proxy.get(annotation)
     end
 
     def to_s
-      send_nlp(:to_s)
+      nlp_proxy.to_s
     end
+
+    private
+
+    attr_reader :nlp_proxy
   end
 end

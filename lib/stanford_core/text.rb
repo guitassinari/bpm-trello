@@ -3,15 +3,10 @@
 module StanfordCore
   # @author Guilherme Tassinari
   # Main class for annotating text using the Stanford NLP parser.
-  class Text
+  class Text < NlpWrapper
     # @param [String] string string containing the text to be analyzed / parsed by the stanford NLP parser
     def initialize(string)
       @string = string || ''
-    end
-
-    # Returns the original text as a string
-    def to_s
-      annotated_text.to_s
     end
 
     # Returns a CorefChainMap instance wrapping the Stanford NLP CoreChain for
@@ -48,24 +43,6 @@ module StanfordCore
       sentences_objects.map(&:original_text)
     end
 
-    def send_nlp(method, annotation = false)
-      return annotated_text.get(method) if annotation
-
-      annotated_text.send(method)
-    end
-
-    # Returns a new instance of Text, where it's inner text has been
-    # preprocessed by {TextPreprocessor}
-    # @see TextPreprocessor
-    # @return [StanfordCore::Text] proprocessed text instance
-    def preprocessed
-      preprocessed_string = TextPreprocessor.new(to_s)
-                                            .substitute_coreferences
-                                            .remove_determiners
-                                            .to_s
-      Text.new(preprocessed_string)
-    end
-
     # all sentences of the text, in the order they're found
     # @see StanfordCore::Sentence
     # @return [Array<StanfordCore::Sentence>] list of sentences
@@ -81,7 +58,6 @@ module StanfordCore
 
     private
 
-
     def nlp_coref_chain
       annotated_text.get(:coref_chain)
     end
@@ -92,6 +68,10 @@ module StanfordCore
 
     def core_sentences
       annotated_text.get(:sentences)
+    end
+
+    def nlp_proxy
+      annotated_text
     end
 
     def annotated_text
