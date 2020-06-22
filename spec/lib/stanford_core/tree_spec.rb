@@ -193,5 +193,33 @@ RSpec.describe StanfordCore::Tree do
     end
   end
 
-  
+  describe '.dependencies' do
+    let(:tree_to_s) { 'tree to s' }
+    before do
+      expect(stanford_tree).to receive(:to_s).and_return(tree_to_s)
+    end
+
+    it 'returns stanford_tree.to_s' do
+      expect(subject.dependencies).to eq(tree_to_s)
+    end
+  end
+
+  describe '.subtrees' do
+    let(:subtrees) { [double(:stanford_tree_1), double(:stanford_tree_2)] }
+    let(:tree_1) { double(:tree_1) }
+    let(:tree_2) { double(:tree_2) }
+
+    before do
+      expect(StanfordCore::Tree)
+        .to receive(:new).with(subtrees[0]).and_return(tree_1)
+      expect(StanfordCore::Tree)
+        .to receive(:new).with(subtrees[1]).and_return(tree_2)
+      expect(stanford_tree).to receive(:each).and_yield(subtrees[0])
+                                             .and_yield(subtrees[1])
+    end
+
+    it 'returns all trees in the tree, but parsed' do
+      expect(subject.subtrees).to eq([tree_1, tree_2])
+    end
+  end
 end
