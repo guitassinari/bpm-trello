@@ -1,10 +1,7 @@
 <ul>
-  <% @sentences.each do |sentence| %>
-    <% sentence.get(:tokens).each do |token| %>
+  <% @boards.each do |board| %>
     <li>
-      <%= token.get(:value).to_s %> - <%= token.get(:part_of_speech).to_s %>
+      <%= board.name %>
     </li>
-    <% end %>
   <% end %>
 </ul>
-
