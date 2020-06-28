@@ -1,0 +1,9 @@
+<h1><%= @board.name %></h1>
+
+<ul>
+<% @activities.each do |activities| %>
+  <% activities.each do |activity| %>
+  <li><%= activity %></li>
+  <% end %>
+<% end %>
+</ul>

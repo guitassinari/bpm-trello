@@ -46,10 +46,14 @@ class ActivityPhraseBuilder
       break if verb.present? && noun_phrase.present? && preposition.present?
     end
 
+    return '' if verb.blank?
+    return verb.lemma_string if noun_phrase.blank?
+    if preposition.blank?
+      return verb.lemma_string + ' ' + noun_phrase.generalized_string
+    end
+
     phrase = verb.lemma_string + ' ' + noun_phrase.generalized_string
-
-    phrase += ' ' + preposition.lemma_string  if preposition.present?
-
+    phrase += ' ' + preposition.lemma_string
     phrase
   end
 end
