@@ -49,3 +49,14 @@ $ bundle exec rails s
 ```
 
 Now your application is running and available at `localhost:3000`
+
+## Documentation
+
+You can generate docs for this project using [YARD](https://yardoc.org/).
+Follow YARD's installations steps and run this command inside the project's directory.
+
+```
+$ yard
+```
+
+This will generate the projects docs inside the project's directory.
