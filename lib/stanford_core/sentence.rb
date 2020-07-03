@@ -54,6 +54,11 @@ module StanfordCore
       @tree ||= Tree.new(nlp_tree)
     end
 
+    # wether the sentence has a verb
+    def has_verb?
+      parts_of_speech.include?('VB')
+    end
+
     private
 
     def each_token

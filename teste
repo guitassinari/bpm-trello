@@ -1,0 +1,2 @@
+// Match expressions like "monday afternoon"
+{ ruleType: "tokens", pattern: ( /./ ) }

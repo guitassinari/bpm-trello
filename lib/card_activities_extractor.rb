@@ -8,7 +8,7 @@ class CardActivitiesExtractor
   def activities
     preprocessor = TextPreprocessor.new(comments_as_conversation)
                                    .substitute_coreferences
-    binding.pry
+                                   .remove_determiners
     TextActivitiesExtractor.new(preprocessor.to_s).activities
   end
 
