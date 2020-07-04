@@ -1,2 +1,10 @@
 // Match expressions like "monday afternoon"
-{ ruleType: "tokens", pattern: ( /./ ) }
+$VERB = "[{pos: /VB.*/}]"
+$SUBJECT = "[{pos: /NN.*/}]"
+$CONNECTORS = "/.*/"
+$OBJECT = "[{pos: /NN.*/}]"
+
+{
+  pattern: (($SUBJECT)($CONNECTORS)($VERB) /review/ /this/ ($OBJECT)),
+  result: "ACTIVITY"
+}

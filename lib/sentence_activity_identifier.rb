@@ -22,21 +22,21 @@ class SentenceActivityIdentifier
     StanfordCoreNLP.load_class('NodePattern', 'edu.stanford.nlp.ling.tokensregex')
     StanfordCoreNLP.load_class('Pattern', 'java.util.regex')
     env.set_default_string_match_flags(StanfordCoreNLP::NodePattern.CASE_INSENSITIVE | StanfordCoreNLP::Pattern.UNICODE_CASE)
-    # env.set_default_string_pattern_flags(StanfordCoreNLP::Pattern.CASE_INSENSITIVE | StanfordCoreNLP::Pattern.UNICODE_CASE)
+    env.set_default_string_pattern_flags(StanfordCoreNLP::Pattern.CASE_INSENSITIVE | StanfordCoreNLP::Pattern.UNICODE_CASE)
 
     StanfordCoreNLP.load_class('CoreMapExpressionExtractor', 'edu.stanford.nlp.ling.tokensregex')
-    extractor = StanfordCoreNLP::CoreMapExpressionExtractor.create_extractor_from_string(env, '{ pattern: ( "Alessandro" ), result: "ALESSANDRO" }')
+    extractor = StanfordCoreNLP::CoreMapExpressionExtractor.create_extractor_from_file(env, 'teste')
 
-    puts(@sentence.to_s)
-    expressions = extractor.extract_expressions(@sentence.nlp_proxy)
+    expressions = []
 
-    expressions.each do |e|
-      expression = Expression.new(e)
+    extractor.extract_expressions(@sentence.nlp_proxy).each do |e|
+      expressions.push(Expression.new(e))
     end
+    binding.pry
   end
 end
 
-class Expression < NlpWrapper
+class Expression < StanfordCore::NlpWrapper
   def id
     value.to_s
   end
