@@ -27,5 +27,17 @@ module StanfordCore
     def to_s
       nlp_proxy.to_s
     end
+
+    def iterable_method_to_array(iterable_method, wrapper_class = nil)
+      list = []
+      send_nlp(iterable_method).each do |item|
+        if wrapper_class.present?
+          list.push(wrapper_class.new(item))
+        else
+          list.push(item)
+        end
+      end
+      list
+    end
   end
 end

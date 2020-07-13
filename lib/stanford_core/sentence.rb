@@ -26,7 +26,7 @@ module StanfordCore
     #          -> QA/NNP (pobj)
     # @return [String] indented string representing the sentence's dependency tree
     def dependencies
-      get_annotation(:basic_dependencies).to_s
+      semantic_graph.to_s
     end
 
     # list of the sentence's tokens part of speech tags
@@ -38,12 +38,16 @@ module StanfordCore
       tokens.map(&:part_of_speech_tag)
     end
 
+    def parser_parts_of_speech
+      semantic_graph.parser_tags
+    end
+
     # list of tokens in the sentence
     # @return [Array<StanfordCore::Token>] list of tokens
     def tokens
       @tokens ||= begin
         token_list = []
-        each_token { |token| token_list.push(token) }
+        nlp_tokens.each { |token| token_list.push(Token.new(token)) }
         token_list
       end
     end
@@ -59,10 +63,14 @@ module StanfordCore
       parts_of_speech.include?('VB')
     end
 
+    def semantic_graph
+      @semantic_graph ||= SemanticGraph.new(nlp_semantic_graph)
+    end
+
     private
 
-    def each_token
-      nlp_tokens.each { |token| yield(Token.new(token)) }
+    def nlp_semantic_graph
+      get_annotation(:basic_dependencies)
     end
 
     def nlp_tokens
@@ -72,5 +80,57 @@ module StanfordCore
     def nlp_tree
       get_annotation(:tree)
     end
+  end
+end
+
+# https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/semgraph/SemanticGraph.html
+class SemanticGraph < StanfordCore::NlpWrapper
+  def pos_tags
+    topological_sorted_indexed_words.map(&:pos_tag)
+  end
+
+  def parser_tags
+    topological_sorted_indexed_words.map(&:parser_tag)
+  end
+
+  def words
+    topological_sorted_indexed_words.map(&:word)
+  end
+
+  def relations
+    typed_dependencies.map(&:relation)
+  end
+
+  def topological_sorted_indexed_words
+    @topological_sorted_indexed_words ||=
+      iterable_method_to_array(:topological_sort, IndexedWord)
+  end
+
+  def typed_dependencies
+    @typed_dependencies ||= 
+      iterable_method_to_array(:typed_dependencies, TypedDependency)
+  end
+end
+
+# https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/trees/TypedDependency.html
+class TypedDependency < StanfordCore::NlpWrapper
+  def relation
+    # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/trees/GrammaticalRelation.html
+    send_nlp(:reln).to_s
+  end
+end
+
+# https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/ling/IndexedWord.html
+class IndexedWord < StanfordCore::NlpWrapper
+  def pos_tag
+    send_nlp(:tag)
+  end
+
+  def parser_tag
+    send_nlp(:value)
+  end
+
+  def word
+    send_nlp(:word)
   end
 end
