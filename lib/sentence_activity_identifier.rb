@@ -14,61 +14,86 @@ class SentenceActivityIdentifier
   end
 
   def parts_of_speech_activities
-    find_activities_by_pos_tags(@sentence.parts_of_speech)
+    ActivitiesRegexes::ACTIVITIES.map do |regex|
+      SentencePosRegexApplier.new(@sentence, regex).matches_by_regular_tags
+    end.flatten(1)
   end
 
   def parser_parts_of_speech_activities
-    find_activities_by_pos_tags(semantic_graph.pos_tags)
+    ActivitiesRegexes::ACTIVITIES.map do |regex|
+      SentencePosRegexApplier.new(@sentence, regex).matches_by_parser_tags
+    end.flatten(1)
   end
 
-  def parser_activities
-    []
+  def teste
+    parts_of_speech_activities + parser_parts_of_speech_activities
+  end
+end
+
+module PosRegexApplier
+  def token_ranges_for_matches(pos_string, regex)
+    scan_for_matches(pos_string, regex).map do |pos_sub_string|
+      position_range_of_substring(pos_sub_string, pos_string)
+    end
+  end
+
+  def scan_for_matches(pos_string, regex)
+    pos_string.scan(regex).map(&:first)
+  end
+
+  def position_range_of_substring(sub_string, string)
+    begins_at = string.index(sub_string)
+    begins_at_token = string.slice(0, begins_at).count(' ')
+    number_of_tokens = sub_string.split(' ').size
+    ends_at_token = begins_at_token+number_of_tokens
+    [begins_at_token, ends_at_token]
+  end
+end
+
+class SentencePosRegexApplier
+  include ::PosRegexApplier
+
+  def initialize(sentence, regex)
+    @sentence = sentence
+    @regex = regex
+  end
+
+  def matches
+    matches_by_parser_tags + matches_by_regular_tags
+  end
+
+  def matches_by_regular_tags
+    find_matches_by_tag_list(regular_tag_list)
+  end
+
+  def matches_by_parser_tags
+    find_matches_by_tag_list(parser_tag_list)
+  end
+
+  private
+
+  def regular_tag_list
+    @sentence.parts_of_speech
+  end
+
+  def parser_tag_list
+    semantic_graph.pos_tags
   end
 
   def semantic_graph
     @sentence.semantic_graph
   end
 
-  def find_activities_by_pos_tags(pos_tags_list)
-    activities_tokens_ranges = find_activities_matches_in_pos_string(pos_tags_list.join(' '))
-    activities_tokens_ranges.map do |range|
-      begins_at, ends_at = range 
+  def find_matches_by_tag_list(pos_tags_list)
+    matches_token_ranges = token_ranges_for_matches(pos_tags_list.join(' '), @regex)
+    matches_token_ranges.map do |range|
+      begins_at, ends_at = range
       @sentence.tokens.slice(begins_at..ends_at).join(' ')
     end
   end
-
-  def find_activities_matches_in_pos_string(pos_string)
-    ActivitiesRegexes::ACTIVITIES.map do |regex|
-      matches = pos_string.scan(regex)
-      matches.map(&:first).map do |pos_sub_string|
-        tokens_range_by_parts_of_speech(pos_sub_string, pos_string)
-      end
-    end.flatten(1)
-  end
-
-  def tokens_range_by_parts_of_speech(pos_string, sentence_pos_string)
-    index_of_substring = sentence_pos_string.index(pos_string)   # finds where pos_string is inside sentence_pos_string
-    number_of_tokens = pos_string.split(' ').size                # number of tokens in pos string
-    first_token_index = sentence_pos_string.slice(0, index_of_substring).count(' ')  # finds in which token pos_string begins in sentence_pos_string
-    [first_token_index, first_token_index+number_of_tokens]
-  end
-
-  def teste
-    parts_of_speech_activities + parser_activities
-  end
 end
 
-class Expression < StanfordCore::NlpWrapper
-  def id
-    value.to_s
-  end
 
-  private
-
-  def value
-    send_nlp(:value)
-  end
-end
 
 module ActivitiesRegexes
   VERB = /(VB)(D|G|N|P|Z)?/
