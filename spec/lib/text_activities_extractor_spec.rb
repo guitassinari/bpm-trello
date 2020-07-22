@@ -23,15 +23,15 @@ RSpec.describe TextActivitiesExtractor do
     end
   end
 
-  describe 'teste' do
-    let(:text) { file_fixture('text.txt').read }
-    let(:sentence) { StanfordCore::Text.new(text).sentences_objects.first }
-    let(:sentence_activity_identifier) do
-      SentenceActivityIdentifier.new(sentence)
-    end
+  # describe 'teste' do
+  #   let(:text) { file_fixture('text.txt').read }
+  #   let(:sentence) { StanfordCore::Text.new(text).sentences_objects.first }
+  #   let(:sentence_activity_identifier) do
+  #     SentenceActivityIdentifier.new(sentence)
+  #   end
 
-    it 'ha' do
-      expect(sentence_activity_identifier.teste).to eq("ja")
-    end
-  end
+  #   it 'ha' do
+  #     expect(sentence_activity_identifier.activities).to eq("ja")
+  #   end
+  # end
 end

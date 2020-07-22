@@ -11,6 +11,14 @@ module StanfordCore
       part_of_speech_tag == 'DT'
     end
 
+    def verb?
+      part_of_speech_tag =~ /VB/
+    end
+
+    def comma?
+      part_of_speech_tag =~ /,/
+    end
+
     # Returns the token's part of speech tag
     # @return [String] part of speech tag
     def part_of_speech_tag

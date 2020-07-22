@@ -44,6 +44,26 @@ class TextPreprocessor
     end
   end
 
+  def lemmatize_verbs
+    update_processed_string_chain do |token|
+      if token.verb?
+        token.lemma
+      else
+        token.to_s
+      end
+    end
+  end
+
+  def remove_commas
+    update_processed_string_chain do |token|
+      if token.comma?
+        nil
+      else
+        token.to_s
+      end
+    end
+  end
+
   # Returns the text preprocessed by all method chained calls in the order they
   # were called
   # @return [String] The preprocessed string

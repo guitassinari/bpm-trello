@@ -12,16 +12,24 @@ class TextActivitiesExtractor
   private
 
   def unique_activities_phrases
-    reversed_sentences = sentences_activities.reverse
-    reversed_sentences.each do |phrase|
-      reversed_sentences.each do |other_phrase|
+    result = []
+    sentences_activities.each do |phrase|
+      phrase_group = [phrase]
+      sentences_activities.each do |other_phrase|
         next unless other_phrase != phrase
+        
+        if other_phrase.include?(phrase) || phrase.include?(other_phrase)
+          phrase_group.push(other_phrase)
+        end
+      end
 
-        reversed_sentences.delete(phrase) if other_phrase.include?(phrase)
+      if phrase_group.length > 1
+        main_phrase = phrase_group.uniq.sort_by(&:length).first
+        result.push(main_phrase)
       end
     end
 
-    reversed_sentences.uniq
+    result.uniq
   end
 
   def sentences_activities
@@ -32,10 +40,16 @@ class TextActivitiesExtractor
   end
 
   def sentence_activities(sentence)
-    TreeActivitiesExtractor.new(sentence.tree).activities_phrases
+    SentenceActivityIdentifier.new(sentence).activities
   end
 
   def text
-    @text ||= StanfordCore::Text.new(@string)
+    @text ||= begin
+      preprocessed = TextPreprocessor.new(@string)
+                                     .substitute_coreferences
+                                     .remove_determiners
+                                     .lemmatize_verbs.to_s
+      StanfordCore::Text.new(preprocessed)
+    end
   end
 end
