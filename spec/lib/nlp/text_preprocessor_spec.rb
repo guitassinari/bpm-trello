@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe TextPreprocessor do
+RSpec.describe Preprocess::Text do
   let(:text) { file_fixture('text.txt').read }
   let(:preprocessed_text) { file_fixture('preprocessed_text.txt').read }
   let(:subject) { described_class.new(text) }
