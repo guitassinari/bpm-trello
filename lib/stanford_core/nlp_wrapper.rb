@@ -4,6 +4,8 @@ module StanfordCore
   # A base class to be inherited by all classes that wrap Java Stanford CoreNLP
   # binded objects
   class NlpWrapper
+    attr_reader :nlp_proxy
+
     # @param nlp_proxy a Java Stanford CoreNlp binded object
     def initialize(nlp_proxy)
       @nlp_proxy = nlp_proxy
@@ -26,8 +28,16 @@ module StanfordCore
       nlp_proxy.to_s
     end
 
-    private
-
-    attr_reader :nlp_proxy
+    def iterable_method_to_array(iterable_method, wrapper_class = nil)
+      list = []
+      send_nlp(iterable_method).each do |item|
+        if wrapper_class.present?
+          list.push(wrapper_class.new(item))
+        else
+          list.push(item)
+        end
+      end
+      list
+    end
   end
 end

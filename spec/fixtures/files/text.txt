@@ -1,1 +1,1 @@
-Alessandro, please review this pull-request so that we can get it to QA. Sure. I will review it today. Before reviewing it, let all tests pass.
+Alessandro, can you please review this pull-request so that we can get it to QA. Sure. I will review it today. Before reviewing it, let all tests pass.
