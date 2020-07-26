@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 module BpmTrello
-  class Card
-    def initialize(trello_card)
-      @card = trello_card
-    end
+  class Card < SimpleDelegator
+    include BpmTrello::ElementExtractor
   
     def activities
-      Bpm::ElementExtractor::Text.new(comments_as_conversation).activities
+      extract_activities(comments_as_conversation)
     end
   
     def comments_as_conversation
@@ -17,7 +15,7 @@ module BpmTrello
     private
   
     def preprocessed_card_name
-      @card.name + '.'
+      name + '.'
     end
   
     def comments_texts
@@ -25,7 +23,7 @@ module BpmTrello
     end
   
     def comments
-      @comments ||= @card.comments.reverse
+      @comments ||= super.reverse
     end
   end  
 end

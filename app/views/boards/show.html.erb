@@ -1,9 +1,10 @@
-<h1><%= @board.name %></h1>
+<h1>Board: <%= @board.name %></h1>
 
 <ul>
-<% @activities.each do |activities| %>
-  <% activities.each do |activity| %>
-  <li><%= activity %></li>
+<% @bpm_cards.each do |card| %>
+<h2><%= card.name %></h2>
+  <% card.activities.each do |activity| %>
+    <li><%= activity %></li>
   <% end %>
 <% end %>
 </ul>

@@ -4,13 +4,9 @@ class BoardsController < ApplicationController
   def show
     @board = Trello::Board.find(board_id)
     @cards = @board.cards(filter: :all)
-    @activities = @cards.map do |card|
+    @bpm_cards = @cards.map do |card|
       sleep(0.5)
-      bpm_card = BpmTrello::Card.new(card)
-      activities = Bpm::ElementExtractor::Text
-                    .new(bpm_card.comments_as_conversation)
-                    .activities
-      activities.map { |a| Preprocess::Text.new(a).remove_stopwords.to_s }
+      BpmTrello::Card.new(card)
     end
   end
 

@@ -31,7 +31,9 @@ module Bpm
           end
         end
     
-        result.uniq
+        result.uniq.map do |a|
+          Preprocess::Text.new(a).remove_stopwords.to_s
+        end
       end
     
       def sentences_activities
