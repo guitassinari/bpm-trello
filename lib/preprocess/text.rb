@@ -38,7 +38,13 @@ module Preprocess
         if token.coreference?
           coref = find_coref(token.coreference_cluster_id)
           mention = coref.representative_mention
-          mention.to_s
+          mention_words = mention.to_s.split(' ')
+          multi_word_rep_mention = mention_words.size > 1
+          if multi_word_rep_mention && mention_words.last == token.to_s
+            token.to_s
+          else
+            mention.to_s
+          end
         else
           token.to_s
         end
@@ -56,23 +62,19 @@ module Preprocess
     end
   
     def remove_commas
-      update_processed_string_chain do |token|
-        if token.comma?
-          nil
-        else
-          token.to_s
-        end
-      end
+      @processed_string = @processed_string.gsub(',', '')
+      self
     end
 
     def remove_stopwords
-      update_processed_string_chain do |token|
-        if Preprocess::STOPWORDS.include?(token.to_s)
-          nil
-        else
-          token.to_s
-        end
-      end
+      regex = Regexp.union(Preprocess::STOPWORDS)
+      @processed_string = @processed_string.gsub(/\b(#{regex.source})\b/, '')
+      self
+    end
+
+    def lowercase
+      @processed_string = @processed_string.downcase
+      self
     end
   
     # Returns the text preprocessed by all method chained calls in the order they

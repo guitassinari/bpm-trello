@@ -1,3 +1,55 @@
 // Place all the styles related to the boards controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.BoardGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 30px;
+
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 480px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.BoardCard {
+  display: flex;
+  min-height: 100px;
+  align-items: flex-start;
+  padding: 15px;
+  position: relative;
+  color: white;
+  border-radius: 3px;
+  font-size: 18px;
+  text-decoration: none;
+
+  > div {
+    z-index: 99;
+  }
+  
+  &:hover {
+    &:before {
+      background-color: #000000a0;
+    }
+  }
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000080;
+    border-radius: 3px;
+  }
+}

@@ -25,10 +25,8 @@ module Bpm
             end
           end
     
-          if phrase_group.length > 1
-            main_phrase = phrase_group.uniq.sort_by(&:length).first
-            result.push(main_phrase)
-          end
+          main_phrase = phrase_group.uniq.sort_by(&:length).first
+          result.push(main_phrase)
         end
     
         result.uniq.map do |a|
@@ -50,6 +48,7 @@ module Bpm
       def text
         @text ||= begin
           preprocessed = Preprocess::Text.new(@string)
+                                         .lowercase
                                          .substitute_coreferences
                                          .remove_determiners
                                          .lemmatize_verbs.to_s

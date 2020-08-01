@@ -6,16 +6,14 @@ module StanfordCore
   # Singleton class used to instantiate the Stanford Core NLP pipeline
   # @author Guilherme Tassinari
   class NlpPipeline
-    include Singleton
-
     def initialize
-      @pipeline = StanfordCoreNLP.load(:tokenize,
-                                       :ssplit,
-                                       :parse,
-                                       :pos,
-                                       :lemma,
-                                       :ner,
-                                       :dcoref)
+      @@pipeline ||= StanfordCoreNLP.load(:tokenize,
+                                          :ssplit,
+                                          :parse,
+                                          :pos,
+                                          :lemma,
+                                          :ner,
+                                          :dcoref)
       @features = []
     end
 
@@ -32,7 +30,7 @@ module StanfordCore
     private
 
     def pipeline
-      @pipeline
+      @@pipeline
     end
   end
 end

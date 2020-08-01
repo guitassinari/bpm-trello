@@ -76,7 +76,7 @@ module StanfordCore
 
     def annotated_text
       @annotated_text ||= begin
-        NlpPipeline.instance.annotate_text(@string)
+        NlpPipeline.new.annotate_text(@string)
       end
     end
   end
