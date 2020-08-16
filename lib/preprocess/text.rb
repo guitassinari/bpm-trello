@@ -40,9 +40,9 @@ module Preprocess
           mention = coref.representative_mention
           mention_words = mention.to_s.split(' ')
           multi_word_rep_mention = mention_words.size > 1
-          if multi_word_rep_mention && mention_words.last == token.to_s
+          if multi_word_rep_mention && mention_words.first != token.to_s
             token.to_s
-          else
+          else 
             mention.to_s
           end
         else
@@ -50,15 +50,17 @@ module Preprocess
         end
       end
     end
+
+    def add_period_to_end
+      if @processed_string.last != "."
+        @processed_string = @processed_string + "."
+      end
+      self
+    end
   
     def lemmatize_verbs
-      update_processed_string_chain do |token|
-        if token.verb?
-          token.lemma
-        else
-          token.to_s
-        end
-      end
+      @processed_string = processed_text.sentences_objects.map(&:lemmatize).join(' ')
+      self
     end
   
     def remove_commas

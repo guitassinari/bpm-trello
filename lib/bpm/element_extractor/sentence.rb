@@ -8,6 +8,8 @@ module Bpm
       end
     
       def activities
+        return [] unless @sentence.has_verb?
+
         SentenceBpmRegexesApplier
           .new(
             @sentence,
@@ -26,8 +28,8 @@ class SentenceBpmRegexesApplier
 
   def matches
     parts_of_speech_matches +
-      parser_parts_of_speech_matches +
-      parser_dependencies_matches
+      parser_parts_of_speech_matches
+      # parser_dependencies_matches
   end
 
   def parts_of_speech_matches
@@ -43,11 +45,14 @@ class SentenceBpmRegexesApplier
   end
 
   def parser_dependencies_matches
-    []
+    # ["root", "dobj", "nn"]
+    # ["root", "dobj", "amod"]
+    # Assumir que root é verbo. Begar objeto. Sujeito?
+    SentenceDependenciesRegexApplier.new(@sentence, REGEX_1).matches
   end
 end
 
-module PosRegexApplier
+module SentenceRegexApplier
   def token_ranges_for_matches(pos_string, regex)
     scan_for_matches(pos_string, regex).map do |pos_sub_string|
       position_range_of_substring(pos_sub_string, pos_string)
@@ -67,8 +72,34 @@ module PosRegexApplier
   end
 end
 
+class SentenceDependenciesRegexApplier
+  include SentenceRegexApplier
+
+  def initialize(sentence, regex)
+    @sentence = sentence
+    @regex = regex
+  end
+
+  def matches
+    matches_token_ranges = token_ranges_for_matches(dependencies_string, @regex)
+    matches_token_ranges.map do |range|
+      begins_at, ends_at = range
+      @sentence.tokens
+               .slice(begins_at..ends_at)
+               .join(' ')
+               .remove(".")
+               .remove(",")
+               .strip
+    end
+  end
+
+  def dependencies_string
+    @sentence.semantic_graph.relations.join(' ')
+  end
+end
+
 class SentencePosRegexApplier
-  include PosRegexApplier
+  include SentenceRegexApplier
 
   def initialize(sentence, regex)
     @sentence = sentence

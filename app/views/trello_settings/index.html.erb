@@ -1,0 +1,13 @@
+<%= form_with(url: update_trello_settings_path) do |f| %>
+  <div>
+    <%= label_tag(:app_key, "APP KEY") %>
+    <%= f.text_field :app_key %>
+  </div>
+  <div>
+    <%= label_tag(:api_key, "API KEY") %>
+    <%= f.text_field :api_key %>
+  </div>
+  <div>
+    <%= submit_tag "Submit" %>
+  </div>
+<% end %>

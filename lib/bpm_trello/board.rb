@@ -6,7 +6,7 @@ module BpmTrello
     include BpmTrello::ElementExtractor
   
     def activities
-      all_cards.map { |c| c.activities }.flatten(1)
+      @activities ||= all_cards.map { |c| c.activities }.flatten(1)
     end
   
     private

@@ -665,5 +665,7 @@ module Preprocess
     "you've",
     "z",
     "zero",
+    "-LRB-",
+    "-RRB-"
   ]
 end

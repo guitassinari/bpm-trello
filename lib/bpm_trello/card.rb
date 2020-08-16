@@ -19,7 +19,13 @@ module BpmTrello
     end
   
     def comments_texts
-      comments.map(&:text)
+      comments.map(&:text).map do |comment_text|
+        if comment_text.last != "."
+          comment_text + "."
+        else
+          comment_text
+        end
+      end
     end
   
     def comments
