@@ -8,12 +8,12 @@ module BpmTrello
     def activities
       @activities ||= all_cards.map { |c| c.activities }.flatten(1)
     end
+
+    def cards
+      super(filter: :all).map { |c| BpmTrello::Card.new(c) }
+    end
   
     private
-  
-    def cards_text
-      all_cards.map(&:comments_as_conversation).join('. ')
-    end
     
     def all_cards
       cards(filter: :all).map { |c| BpmTrello::Card.new(c) }

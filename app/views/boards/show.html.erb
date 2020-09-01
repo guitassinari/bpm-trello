@@ -1,7 +1,12 @@
 <h1>Board: <%= @board.name %></h1>
 
-<ul>
-<% @board.activities.each do |activity| %>
-  <li><%= activity %></li>
+<% @board.cards.each do |card| %>
+  <div>
+    <h4><%= card.name %></h4>
+    <ul>
+      <% card.activities.each do |activity| %>
+      <li><%= activity.to_s %> - <%= activity.rule.id %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
-</ul>

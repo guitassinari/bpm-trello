@@ -28,6 +28,20 @@ module Preprocess
         end
       end
     end
+
+    def add_period_if_needed
+      if @processed_string.last != "."
+        @processed_string = @processed_string + "."
+      end
+      self
+    end
+
+    def remove_parenthesis
+      @processed_string = @processed_string.gsub(/\(.+\)/, "")
+      @processed_string = @processed_string.gsub(/\[.+\]/, "")
+      @processed_string = @processed_string.gsub(/\{.+\}/, "")
+      self
+    end
   
     # Substitute all coreferences for its most demonstrative form
     # @example

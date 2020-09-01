@@ -11,6 +11,7 @@ module Bpm
         SUBJECT = /((NN)(PS|P|S)?)/
         CONNECTORS = /((\s?[!-z]*\s?){0,3})/
         VERB_AND_OBJECT = /(#{VERB_NOT_PAST}#{CONNECTORS}#{OBJECT})/
+        CONJUNCTION = /(and|or)/
       end
     end
   end

@@ -11,14 +11,14 @@ RSpec.describe Bpm::ElementExtractor::Sentence do
     context "for rule 1" do
       let(:text) { file_fixture('activities/rule_1.txt').read }
       it "works" do
-        expect(subject.activities).to eq([])
+        expect(subject.activities).not_to eq([])
       end
     end
 
     context "for rule 2" do
       let(:text) { file_fixture('activities/rule_2.txt').read }
       it "works" do
-        expect(subject.activities).to eq([])
+        expect(subject.activities).not_to eq([])
       end
     end
   end
