@@ -1,12 +1,22 @@
 <h1>Board: <%= @board.name %></h1>
 
+<div class="CardGrid">
 <% @board.cards.each do |card| %>
-  <div>
+  <div class="CardActivitiesCard">
     <h4><%= card.name %></h4>
+    <div>
+      <%= card.comments_as_conversation %>
+    </div>
+    <div>
+      <%= BpmTrello::TextPreprocessorFacade.new(card.comments_as_conversation).preprocess %>
+    </div>
     <ul>
       <% card.activities.each do |activity| %>
-      <li><%= activity.to_s %> - <%= activity.rule.id %></li>
+       <li>
+          <%= activity.to_s %>
+       </li>
       <% end %>
     </ul>
   </div>
 <% end %>
+</div>

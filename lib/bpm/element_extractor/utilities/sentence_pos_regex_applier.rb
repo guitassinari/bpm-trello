@@ -8,7 +8,7 @@ module Bpm
         end
       
         def matches
-          matches_by_parser_tags.map { |match| Match.new(match, @rule) }
+          matches_by_parser_tags
         end
       
         def matches_by_regular_tags
@@ -47,17 +47,27 @@ module Bpm
         def find_matches_by_tag_list(pos_tags_list)
           token_ranges_for_matches(pos_tags_list).map do |range|
             begins_at, ends_at = range
-            sentence_substring_by_token_positions(begins_at, ends_at)
+            string = sentence_substring_by_token_positions(begins_at, ends_at)
+            pos_tags = pos_tags_list[begins_at..ends_at]
+            Match.new(string, @rule, pos_tags)
           end
         end
       
         def sentence_substring_by_token_positions(begins_at, ends_at)
-          @sentence.tokens
-                   .slice(begins_at..ends_at)
-                   .join(' ')
-                   .remove(".")
-                   .remove(",")
-                   .strip
+          tokens_excepct_punctuation[begins_at..ends_at]
+            .map do |token|
+              if token.verb?
+                token.lemma
+              else
+                token.to_s
+              end
+            end.join(' ').strip
+        end
+
+        def tokens_excepct_punctuation
+          @tokens_excepct_punctuation ||= @sentence.tokens.reject do |token|
+            [".", ","].include?(token.part_of_speech_tag) 
+          end
         end
       end
     end

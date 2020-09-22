@@ -33,7 +33,14 @@ module Bpm
           begins_at = tag_string.index(sub_string)
           begins_at_token = tag_string.slice(0, begins_at).count(' ')
           number_of_tokens = sub_string.split(' ').size
-          ends_at_token = begins_at_token+number_of_tokens
+          ends_at_token = begins_at_token + number_of_tokens - 1
+          tag_list[ends_at_token+1..-1].each do |tag|
+            if tag =~ /NN/
+              ends_at_token += 1
+            else
+              break
+            end
+          end
           [begins_at_token, ends_at_token]
         end
       end

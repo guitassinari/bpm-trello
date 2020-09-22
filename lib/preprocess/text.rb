@@ -29,6 +29,11 @@ module Preprocess
       end
     end
 
+    def remove_new_lines
+      @processed_string = @processed_string.gsub("\n", " ")
+      self
+    end
+
     def add_period_if_needed
       if @processed_string.last != "."
         @processed_string = @processed_string + "."
@@ -37,9 +42,14 @@ module Preprocess
     end
 
     def remove_parenthesis
-      @processed_string = @processed_string.gsub(/\(.+\)/, "")
-      @processed_string = @processed_string.gsub(/\[.+\]/, "")
-      @processed_string = @processed_string.gsub(/\{.+\}/, "")
+      @processed_string = @processed_string.gsub(/\(.*?\)/, "")
+      @processed_string = @processed_string.gsub(/\[.*?\]/, '')
+      @processed_string = @processed_string.gsub(/\{.*?\}/, '')
+      self
+    end
+
+    def substitute_markdown_links
+      @processed_string = @processed_string.gsub(/\[(.*?)\]\(.*?\)/, '\1')
       self
     end
   
@@ -54,7 +64,7 @@ module Preprocess
           mention = coref.representative_mention
           mention_words = mention.to_s.split(' ')
           multi_word_rep_mention = mention_words.size > 1
-          if multi_word_rep_mention && mention_words.first != token.to_s
+          if mention.to_s.include?("'s") || (multi_word_rep_mention && mention_words.first != token.to_s)
             token.to_s
           else 
             mention.to_s
@@ -84,7 +94,7 @@ module Preprocess
 
     def remove_stopwords
       regex = Regexp.union(Preprocess::STOPWORDS)
-      @processed_string = @processed_string.gsub(/\b(#{regex.source})\b/, '')
+      @processed_string = @processed_string.gsub(/\b(#{regex.source})\b/i, '')
       self
     end
 

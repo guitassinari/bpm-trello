@@ -42,15 +42,7 @@ module Bpm
       end
     
       def text
-        @text ||= begin
-          preprocessed = Preprocess::Text.new(@string)
-                                         .add_period_if_needed
-                                         .remove_parenthesis
-                                         .substitute_coreferences
-                                         .remove_stopwords
-                                         .to_s
-          StanfordCore::Text.new(preprocessed)
-        end
+        @text ||= StanfordCore::Text.new(@string)
       end
     end    
   end

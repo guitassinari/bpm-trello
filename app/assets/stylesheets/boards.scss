@@ -53,3 +53,36 @@
     border-radius: 3px;
   }
 }
+
+.CardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 480px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.CardActivitiesCard {
+  display: flex;
+  min-height: 100px;
+  align-items: flex-start;
+  padding: 15px;
+  position: relative;
+  border-radius: 3px;
+  font-size: 18px;
+  text-decoration: none;
+  flex-direction: column;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+}

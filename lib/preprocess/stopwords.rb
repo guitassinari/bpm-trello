@@ -50,7 +50,7 @@ module Preprocess
     "all",
     "am",
     "an",
-    "and",
+    # "and",
     "any",
     "are",
     "aren't",
