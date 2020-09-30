@@ -24,6 +24,12 @@ module StanfordCore
       tokens.map(&:part_of_speech_tag)
     end
 
+    # Gets all part-of-speech tags of the current text, in the order they appear
+    # @return [Array<String>] list of all pos tags of the text
+    def parser_parts_of_speech
+      sentences_objects.map(&:parser_tags).flatten
+    end
+
     # Gets all lemmas of the current text, in the order they appear
     # @return [Array<String>] list of all lemmas of the text
     def lemmas
@@ -76,7 +82,7 @@ module StanfordCore
 
     def annotated_text
       @annotated_text ||= begin
-        NlpPipeline.instance.annotate_text(@string)
+        NlpPipeline.new.annotate_text(@string)
       end
     end
   end

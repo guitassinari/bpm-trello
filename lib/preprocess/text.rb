@@ -28,6 +28,30 @@ module Preprocess
         end
       end
     end
+
+    def remove_new_lines
+      @processed_string = @processed_string.gsub("\n", " ")
+      self
+    end
+
+    def add_period_if_needed
+      if @processed_string.last != "."
+        @processed_string = @processed_string + "."
+      end
+      self
+    end
+
+    def remove_parenthesis
+      @processed_string = @processed_string.gsub(/\(.*?\)/, "")
+      @processed_string = @processed_string.gsub(/\[.*?\]/, '')
+      @processed_string = @processed_string.gsub(/\{.*?\}/, '')
+      self
+    end
+
+    def substitute_markdown_links
+      @processed_string = @processed_string.gsub(/\[(.*?)\]\(.*?\)/, '\1')
+      self
+    end
   
     # Substitute all coreferences for its most demonstrative form
     # @example
@@ -38,41 +62,45 @@ module Preprocess
         if token.coreference?
           coref = find_coref(token.coreference_cluster_id)
           mention = coref.representative_mention
-          mention.to_s
-        else
-          token.to_s
-        end
-      end
-    end
-  
-    def lemmatize_verbs
-      update_processed_string_chain do |token|
-        if token.verb?
-          token.lemma
-        else
-          token.to_s
-        end
-      end
-    end
-  
-    def remove_commas
-      update_processed_string_chain do |token|
-        if token.comma?
-          nil
+          mention_words = mention.to_s.split(' ')
+          multi_word_rep_mention = mention_words.size > 1
+          if mention.to_s.include?("'s") || (multi_word_rep_mention && mention_words.first != token.to_s)
+            token.to_s
+          else 
+            mention.to_s
+          end
         else
           token.to_s
         end
       end
     end
 
-    def remove_stopwords
-      update_processed_string_chain do |token|
-        if Preprocess::STOPWORDS.include?(token.to_s)
-          nil
-        else
-          token.to_s
-        end
+    def add_period_to_end
+      if @processed_string.last != "."
+        @processed_string = @processed_string + "."
       end
+      self
+    end
+  
+    def lemmatize_verbs
+      @processed_string = processed_text.sentences_objects.map(&:lemmatize).join(' ')
+      self
+    end
+  
+    def remove_commas
+      @processed_string = @processed_string.gsub(',', '')
+      self
+    end
+
+    def remove_stopwords
+      regex = Regexp.union(Preprocess::STOPWORDS)
+      @processed_string = @processed_string.gsub(/\b(#{regex.source})\b/i, '')
+      self
+    end
+
+    def lowercase
+      @processed_string = @processed_string.downcase
+      self
     end
   
     # Returns the text preprocessed by all method chained calls in the order they

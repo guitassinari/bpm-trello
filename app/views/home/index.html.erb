@@ -1,7 +1,11 @@
-<ul>
+<h1>Hello, <%= @user.full_name %></h1>
+<h2>Click in one of your boards to extract Process Elements</h2>
+<div class="BoardGrid">
   <% @boards.each do |board| %>
-    <li>
-      <%= link_to board.name, board_path(id: board.id) %>
-    </li>
+    <%= link_to board_path(id: board.id), class: "BoardCard", style: "background-color: #{board.prefs["backgroundColor"]}" do %>
+      <div>
+        <%= board.name %>
+      </div>  
+    <% end %>
   <% end %>
-</ul>
+</div>

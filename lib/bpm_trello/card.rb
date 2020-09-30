@@ -9,7 +9,7 @@ module BpmTrello
     end
   
     def comments_as_conversation
-      @comments_as_conversation ||= ([preprocessed_card_name] + comments_texts).join("\n")
+      @comments_as_conversation ||= ([preprocessed_card_name] + comments_texts).join(" ")
     end
   
     private
@@ -19,7 +19,14 @@ module BpmTrello
     end
   
     def comments_texts
-      comments.map(&:text)
+      comments.map(&:text).map do |comment_text|
+        stripped_comment = comment_text.strip
+        if stripped_comment.last != "."
+          stripped_comment + "."
+        else
+          stripped_comment
+        end
+      end
     end
   
     def comments

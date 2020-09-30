@@ -2,12 +2,7 @@
 
 class BoardsController < ApplicationController
   def show
-    @board = Trello::Board.find(board_id)
-    @cards = @board.cards(filter: :all)
-    @bpm_cards = @cards.map do |card|
-      sleep(0.5)
-      BpmTrello::Card.new(card)
-    end
+    @board = BpmTrello::Board.new(Trello::Board.find(board_id))
   end
 
   private

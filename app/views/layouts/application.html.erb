@@ -7,9 +7,20 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <div>
+        BPM Trello
+      </div>
+      <div>
+        Developed by <a target="_blank" href="http://github.com/guitassinari">Guilherme Tassinari</a>
+      </div>
+    </header>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

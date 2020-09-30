@@ -3,6 +3,7 @@
 module StanfordCore
   # A wrapper for Stanford CoreNlp sentence class
   class Sentence < NlpWrapper
+    VERBS = ["VB", "VBD", "VBG", "VBN", "VBP", "VBZ"]
     # The sentence original unparsed text
     # @return [String] original sentence as string
     def original_text
@@ -39,7 +40,17 @@ module StanfordCore
     end
 
     def parser_parts_of_speech
-      semantic_graph.parser_tags
+      semantic_graph.pos_tags
+    end
+
+    def lemmatize
+      semantic_graph.topological_sorted_indexed_words.map do |indexed_word|
+        if indexed_word.pos_tag =~ /(VB)(D|G|N|P|Z)?/
+          indexed_word.lemma
+        else
+          indexed_word.word
+        end
+      end.join(' ')
     end
 
     # list of tokens in the sentence
@@ -60,7 +71,7 @@ module StanfordCore
 
     # wether the sentence has a verb
     def has_verb?
-      parts_of_speech.include?('VB')
+      !(parser_parts_of_speech & VERBS).empty?
     end
 
     def semantic_graph
@@ -84,12 +95,21 @@ module StanfordCore
 
   # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/semgraph/SemanticGraph.html
   class SemanticGraph < NlpWrapper
-    def pos_tags
-      topological_sorted_indexed_words.map(&:pos_tag)
+    # TODO: Ver metodos getEdge
+    def root
+      IndexedWord.new(first_root)
     end
 
-    def parser_tags
-      topological_sorted_indexed_words.map(&:parser_tag)
+    def roots
+      @roots ||= iterable_method_to_array(:get_roots, IndexedWord)
+    end
+
+    def pos_tags
+      @pos_tags ||= topological_sorted_indexed_words.map(&:pos_tag)
+    end
+
+    def values
+      @parser_tags ||= topological_sorted_indexed_words.map(&:value)
     end
 
     def words
@@ -102,12 +122,18 @@ module StanfordCore
 
     def topological_sorted_indexed_words
       @topological_sorted_indexed_words ||=
-        iterable_method_to_array(:topological_sort, IndexedWord)
+        iterable_method_to_array(:vertex_list_sorted, IndexedWord)
     end
 
     def typed_dependencies
       @typed_dependencies ||= 
         iterable_method_to_array(:typed_dependencies, TypedDependency)
+    end
+
+    private
+
+    def first_root
+      send_nlp(:get_first_root)
     end
   end
 
@@ -115,22 +141,60 @@ module StanfordCore
   class TypedDependency < NlpWrapper
     def relation
       # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/trees/GrammaticalRelation.html
-      send_nlp(:reln).to_s
+      grammatical_relation.to_s
     end
+
+    def grammatical_relation
+      GrammaticalRelation.new(reln)
+    end
+
+    def governor
+      IndexedWord.new(gov)
+    end
+
+    def dependent
+      IndexedWord.new(dep)
+    end
+
+    private
+
+    def reln
+      send_nlp(:reln)
+    end
+
+    def dep
+      send_nlp(:dep)
+    end
+
+    def gov
+      send_nlp(:gov)
+    end
+  end
+
+  # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/trees/GrammaticalRelation.html
+  class GrammaticalRelation < NlpWrapper
   end
 
   # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/ling/IndexedWord.html
   class IndexedWord < NlpWrapper
+    def lemmatize_if_can
+      return lemma || word
+    end
+
     def pos_tag
       send_nlp(:tag)
     end
 
-    def parser_tag
+    def value
       send_nlp(:value)
     end
 
     def word
       send_nlp(:word)
+    end
+
+    def lemma
+      send_nlp(:lemma) || word
     end
   end
 end

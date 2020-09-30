@@ -2,7 +2,7 @@
 
 class HomeController < ApplicationController
   def index
-    @member = Trello::Member.find(:me)
-    @boards = @member.boards
+    @user = Trello::Member.find(:me)
+    @boards = @user.boards
   end
 end

@@ -28,7 +28,7 @@ module StanfordCore
     # Returns the token's lemma
     # @return [String] lemma
     def lemma
-      get_annotation(:lemma).to_s
+      get_annotation(:lemma).to_s || to_s
     end
 
     # Returns wether token's is a coreference (belongs to a Stanford CoreNLP).
