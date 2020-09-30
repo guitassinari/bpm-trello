@@ -7,6 +7,7 @@ module Bpm
         VERB_NOT_PAST = /(VB)(D|G|Z)?/
         VERB_PARTICIPLE = /(VBG)/
         VERB_PAST = /(VB)(P)?/
+        VERB_PAST_PARTICIPLE = /(VBN)/
         MODIFIED_VERB = /(MD) #{VERB}/
         OBJECT = /((NN)(PS|P|S)?)/
         SUBJECT = /((NN)(PS|P|S)?)/
