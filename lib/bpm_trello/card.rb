@@ -20,7 +20,7 @@ module BpmTrello
   
     def comments_texts
       comments.map(&:text).map do |comment_text|
-        stripped_comment = comment_text.strip
+        stripped_comment = comment_text.squeeze(' ')
         if stripped_comment.last != "."
           stripped_comment + "."
         else

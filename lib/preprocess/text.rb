@@ -116,7 +116,8 @@ module Preprocess
       @processed_string
         .gsub(' .', '.') # remove spaces before periods
         .gsub(' ,', ',') # remove spaces before commas
-        .strip           # remove traling spaces (start and end of string)
+        .squeeze(' ') # remove double strings in middle of string
+        .strip # remove traling spaces (start and end of string)
     end
   
     # Used to allow method chaining (returns self in the end)

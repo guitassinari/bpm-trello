@@ -4,6 +4,8 @@ module Bpm
       module Activity
         include Base
 
+        # Regular expressions for activity identification in natural language texts
+        # according to Ferreira's rules.
         REGEXES = [
           RegexRule.new(/(#{SUBJECT}#{CONNECTORS}#{VERB_AND_OBJECT})/, "ACT_1"),
           RegexRule.new(/(#{SUBJECT}#{CONNECTORS}#{MODIFIED_VERB}#{CONNECTORS}#{OBJECT})/, "ACT_2"),

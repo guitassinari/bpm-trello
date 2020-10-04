@@ -14,24 +14,8 @@ module Bpm
       private
     
       def unique_activities_phrases
-        result = []
-        sentences_activities_matches.each do |match|
-          phrase = match.to_s
-          match_group = [match]
-          sentences_activities_matches.each do |other_match|
-            other_phrase = other_match.to_s
-            next unless other_phrase != phrase
-            
-            if other_phrase.include?(phrase) || phrase.include?(other_phrase)
-              match_group.push(other_match)
-            end
-          end
-          
-          main_match = match_group.uniq(&:string).sort_by(&:length).last
-          result.push(main_match)
-        end
-    
-        result.uniq.reject(&:blank?)
+        Utilities::MatchList.new(sentences_activities_matches)
+                            .without_duplicates
       end
     
       def sentences_activities_matches

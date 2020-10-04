@@ -61,7 +61,7 @@ module Bpm
               else
                 token.to_s
               end
-            end.join(' ').strip
+            end.join(' ').squeeze(' ')
         end
 
         def tokens_excepct_punctuation

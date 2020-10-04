@@ -1,6 +1,9 @@
 module Bpm
   module ElementExtractor
     module Regex
+      # This class encapsulates Regular Expressions for BPM elements identification.
+      # One of it's responsibilities is to hold the regex ID in a way the program
+      # can find which Rule was matched by a found BPM Element.
       class RegexRule
         def initialize(regex, rule_id)
           @regex = regex

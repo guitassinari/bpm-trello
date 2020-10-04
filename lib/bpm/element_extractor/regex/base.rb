@@ -1,11 +1,13 @@
 module Bpm
   module ElementExtractor
     module Regex
+      # Base regular expressions upon which BPM identification regular expressions
+      # are built.
       module Base
         VERB = /(VB)(D|G|N|P|Z)?/
         VERB_PRESENT = /(VB)/
         VERB_NOT_PAST = /(VB)(D|G|Z)?/
-        VERB_PARTICIPLE = /(VBG)/
+        VERB_PARTICIPLE = /(VB)(G|N)/
         VERB_PAST = /(VB)(P)?/
         VERB_PAST_PARTICIPLE = /(VBN)/
         MODIFIED_VERB = /(MD) #{VERB}/

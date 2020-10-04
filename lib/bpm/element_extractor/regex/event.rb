@@ -4,6 +4,8 @@ module Bpm
       module Event
         include Base
 
+        # Regular expressions for event identification in natural language texts
+        # according to Ferreira's rules.
         REGEXES = [
           RegexRule.new(/(#{SUBJECT}#{CONNECTORS}#{VERB_PAST_PARTICIPLE}#{CONNECTORS}#{OBJECT})/, "EVT_1_2"),
           RegexRule.new(/(#{OBJECT}#{CONNECTORS}#{VERB_PAST_PARTICIPLE})/, "EVT_3")
