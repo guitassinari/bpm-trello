@@ -63,7 +63,7 @@ RSpec.describe Bpm::ElementExtractor::Sentence do
       let(:text) { file_fixture('events/rule_1.txt').read }
       it "works" do
         expect(subject.events.first.to_s)
-          .to include("agent confirmed claim to clerk")
+          .to include("agent confirm claim")
       end
     end
 
@@ -71,7 +71,7 @@ RSpec.describe Bpm::ElementExtractor::Sentence do
       let(:text) { file_fixture('events/rule_2.txt').read }
       it "works" do
         expect(subject.events.first.to_s)
-          .to include("file stored by back office")
+          .to include("file store back office")
       end
     end
 
@@ -79,7 +79,7 @@ RSpec.describe Bpm::ElementExtractor::Sentence do
       let(:text) { file_fixture('events/rule_3.txt').read }
       it "works" do
         expect(subject.events.first.to_s)
-          .to include("document received by manager")
+          .to include("document receive manager")
       end
     end
 
@@ -87,7 +87,7 @@ RSpec.describe Bpm::ElementExtractor::Sentence do
       let(:text) { file_fixture('events/rule_4.txt').read }
       it "works" do
         expect(subject.events.first.to_s)
-          .to include("message generated to customer")
+          .to include("message generate customer")
       end
     end
   end
