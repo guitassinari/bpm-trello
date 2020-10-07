@@ -30,6 +30,18 @@ module Bpm
   
         Utilities::MatchList.new(matches).without_duplicates
       end
+
+      def exclusive_gateways
+        return [] unless @sentence.has_verb?
+  
+        matches = Bpm::ElementExtractor::Regex::ExclusiveGateway::REGEXES.map do |regex_rule|
+          Bpm::ElementExtractor::Utilities::SentencePosRegexApplier
+            .new(@sentence, regex_rule)
+            .matches
+        end.flatten(1)
+  
+        Utilities::MatchList.new(matches).without_duplicates
+      end
     end
   end
 end

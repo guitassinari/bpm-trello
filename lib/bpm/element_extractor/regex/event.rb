@@ -11,6 +11,8 @@ module Bpm
           RegexRule.new(/(#{OBJECT}#{CONNECTORS}#{VERB_PAST_PARTICIPLE})/, "EVT_3"),
           RegexRule.new(/(#{OBJECT}#{CONNECTORS}#{VERB_PAST}#{CONNECTORS}#{SUBJECT})/, "EVT_4")
         ]
+
+        EVENT = Regexp.new(REGEXES.join("|"))
       end
     end
   end

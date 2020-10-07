@@ -15,6 +15,10 @@ module Bpm
         def id
           @rule_id
         end
+
+        def to_s
+          @regex
+        end
       end
     end
   end

@@ -14,6 +14,8 @@ module Bpm
           RegexRule.new(/(#{OBJECT}#{CONNECTORS}#{SUBJECT}#{CONNECTORS}#{VERB_PARTICIPLE})/, "ACT_5"),
           RegexRule.new(/(#{VERB_AND_OBJECT}#{CONJUNCTION}#{VERB_AND_OBJECT})/, "ACT_6")
         ]
+
+        ACTIVITY = Regexp.new(REGEXES.join("|"))
       end
     end
   end

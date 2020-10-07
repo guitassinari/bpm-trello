@@ -1,0 +1,1 @@
+It first checked whether the claimant is insured by the organization.

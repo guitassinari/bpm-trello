@@ -91,4 +91,38 @@ RSpec.describe Bpm::ElementExtractor::Sentence do
       end
     end
   end
+
+  describe ".exclusive_gateways" do
+    context "for rule 1" do
+      let(:text) { file_fixture('exclusive_gateways/rule_1.txt').read }
+      it "works" do
+        expect(subject.exclusive_gateways.first.to_s)
+          .to include("agent confirm claim")
+      end
+    end
+
+    context "for rule 2" do
+      let(:text) { file_fixture('exclusive_gateways/rule_2.txt').read }
+      it "works" do
+        expect(subject.exclusive_gateways.first.to_s)
+          .to include("file store back office")
+      end
+    end
+
+    context "for rule 3" do
+      let(:text) { file_fixture('exclusive_gateways/rule_3.txt').read }
+      it "works" do
+        expect(subject.exclusive_gateways.first.to_s)
+          .to include("document receive manager")
+      end
+    end
+
+    context "for rule 4" do
+      let(:text) { file_fixture('exclusive_gateways/rule_4.txt').read }
+      it "works" do
+        expect(subject.exclusive_gateways.first.to_s)
+          .to include("message generate customer")
+      end
+    end
+  end
 end
