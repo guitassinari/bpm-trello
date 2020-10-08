@@ -55,13 +55,7 @@ module Bpm
       
         def sentence_substring_by_token_positions(begins_at, ends_at)
           tokens_excepct_punctuation[begins_at..ends_at]
-            .map do |token|
-              if token.verb?
-                token.lemma
-              else
-                token.to_s
-              end
-            end.join(' ').squeeze(' ')
+            .map(&:to_s).join(' ').squeeze(' ')
         end
 
         def tokens_excepct_punctuation

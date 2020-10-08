@@ -4,19 +4,26 @@
 <% @board.cards.each do |card| %>
   <div class="CardActivitiesCard">
     <h4><%= card.name %></h4>
-    <div>
-      <%= card.comments_as_conversation %>
-    </div>
-    <div>
-      <%= BpmTrello::TextPreprocessorFacade.new(card.comments_as_conversation).preprocess %>
-    </div>
-    <ul>
-      <% card.activities.each do |activity| %>
-       <li>
-          <%= activity.to_s %>
-       </li>
-      <% end %>
-    </ul>
+    <table>
+      <tbody>
+        <% card.activities.each do |activity| %>
+        <tr>
+            <td><%= activity.to_s %></td>
+            <td><%= activity.rule.rule_id %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <table>
+      <tbody>
+        <% card.events.each do |event| %>
+        <tr>
+            <td><%= event.to_s %></td>
+            <td><%= event.rule.rule_id %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 <% end %>
 </div>

@@ -5,7 +5,11 @@ module BpmTrello
     include BpmTrello::ElementExtractor
   
     def activities
-      extract_activities(comments_as_conversation)
+      extract_activities
+    end
+
+    def events
+      extract_events
     end
   
     def comments_as_conversation

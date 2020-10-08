@@ -11,9 +11,7 @@ module Bpm
         return [] unless @sentence.has_verb?
 
         matches = Bpm::ElementExtractor::Regex::Activity::REGEXES.map do |regex_rule|
-          Bpm::ElementExtractor::Utilities::SentencePosRegexApplier
-            .new(@sentence, regex_rule)
-            .matches
+          regex_rule.matches_for(@sentence)
         end.flatten(1)
 
         Utilities::MatchList.new(matches).without_duplicates
@@ -23,9 +21,7 @@ module Bpm
         return [] unless @sentence.has_verb?
   
         matches = Bpm::ElementExtractor::Regex::Event::REGEXES.map do |regex_rule|
-          Bpm::ElementExtractor::Utilities::SentencePosRegexApplier
-            .new(@sentence, regex_rule)
-            .matches
+          regex_rule.matches_for(@sentence)
         end.flatten(1)
   
         Utilities::MatchList.new(matches).without_duplicates
@@ -35,9 +31,7 @@ module Bpm
         return [] unless @sentence.has_verb?
   
         matches = Bpm::ElementExtractor::Regex::ExclusiveGateway::REGEXES.map do |regex_rule|
-          Bpm::ElementExtractor::Utilities::SentencePosRegexApplier
-            .new(@sentence, regex_rule)
-            .matches
+          regex_rule.matches_for(@sentence)
         end.flatten(1)
   
         Utilities::MatchList.new(matches).without_duplicates

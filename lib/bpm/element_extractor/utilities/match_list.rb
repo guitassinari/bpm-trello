@@ -9,18 +9,21 @@ module Bpm
         def without_duplicates
           @without_duplicates ||= begin
             result = []
-            matches.each do |match|
+            matches_it = matches.clone
+            matches_it.each do |match|
               match_group = [match]
-              matches.each do |other_match|
+              matches_it.each do |other_match|
                 next unless match != other_match
                 
                 if match.duplicate_of?(other_match)
                   match_group.push(other_match)
+                  matches_it.delete(other_match)
                 end
               end
               
               main_match = match_group.uniq(&:string).sort_by(&:length).last
               result.push(main_match)
+              matches_it.delete(match)
             end
         
             result.uniq.reject(&:blank?)

@@ -11,7 +11,7 @@ module Bpm
         attr_reader :string, :rule, :pos_tags
 
         def to_s
-          @to_s ||= Preprocess::Text.new(string).remove_stopwords.to_s
+          @to_s ||= @string
         end
 
         def length

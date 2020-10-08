@@ -10,6 +10,12 @@ module Bpm
           @rule_id = rule_id
         end
 
+        def matches_for(sentence)
+          Bpm::ElementExtractor::Utilities::SentencePosRegexApplier
+            .new(sentence, self)
+            .matches
+        end
+
         attr_reader :regex, :rule_id
 
         def id

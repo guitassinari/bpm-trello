@@ -6,16 +6,16 @@ module Bpm
       module Base
         VERB = /(VB)(D|G|N|P|Z)?/
         VERB_PRESENT = /(VB)/
-        VERB_NOT_PAST = /(VB)(D|G|Z)?/
+        VERB_NOT_PAST = /(VB)(G|Z)?/
         VERB_PARTICIPLE = /(VB)(G|N)/
-        VERB_PAST = /(VB)(P)?/
+        VERB_PAST = /(VBP)/
         VERB_PAST_PARTICIPLE = /(VBN)/
         MODIFIED_VERB = /(MD) #{VERB}/
         OBJECT = /((NN)(PS|P|S)?)/
         SUBJECT = /((NN)(PS|P|S)?)/
-        CONNECTORS = /((\s?[!-z]*\s?){0,3})/
+        CONNECTORS = /((\s?[!-z]*\s?){0,3}?)/
         VERB_AND_OBJECT = /(#{VERB_NOT_PAST}#{CONNECTORS}#{OBJECT})/
-        CONJUNCTION = /(and|or)/
+        CONJUNCTION = /CC/
       end
     end
   end
