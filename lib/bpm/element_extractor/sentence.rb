@@ -8,6 +8,7 @@ module Bpm
       end
     
       def activities
+        binding.pry
         return [] unless @sentence.has_verb?
 
         matches = Bpm::ElementExtractor::Regex::Activity::REGEXES.map do |regex_rule|

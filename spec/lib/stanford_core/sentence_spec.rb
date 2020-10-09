@@ -25,12 +25,16 @@ RSpec.describe StanfordCore::Sentence do
 
   describe '.parts_of_speech' do
     let(:expected_pos_tags) do
-      ['NNP', ',', 'VB', 'NN', 'DT', 'JJ', 'IN', 'IN', 'PRP', 'MD', 'VB', 'PRP',
-       'TO', 'NNP', '.']
+      ["NNP", ",", "MD", "PRP", "VB", "NN", "DT", "JJ", "IN", "IN", "PRP", "MD", "VB", "PRP", "TO", "NNP", "."]
     end
 
     it 'returns a list of pos tags' do
       expect(subject.parts_of_speech).to eq(expected_pos_tags)
+    end
+
+    it 'equals parser parts of speech (without punctuations)' do
+      expect(subject.parts_of_speech - [",", "."])
+        .to eq(subject.parser_parts_of_speech)
     end
   end
 
