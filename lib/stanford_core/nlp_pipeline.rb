@@ -13,7 +13,8 @@ module StanfordCore
                                           :parse,
                                           :lemma,
                                           :ner,
-                                          :dcoref)
+                                          :dcoref,
+                                          :depparse)
       @features = []
     end
 

@@ -93,9 +93,16 @@ module StanfordCore
     end
   end
 
-  # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/semgraph/SemanticGraph.html
+  # https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/semgraph/SemanticGraph.html
   class SemanticGraph < NlpWrapper
     # TODO: Ver metodos getEdge
+
+    def search_relations_by_grammatical_relation(grammatical_relation)
+      iterable_method_to_array(:find_all_relns,
+                               SemanticGraphEdge,
+                               grammatical_relation.nlp_proxy)
+    end
+
     def root
       IndexedWord.new(first_root)
     end
@@ -130,6 +137,10 @@ module StanfordCore
         iterable_method_to_array(:typed_dependencies, TypedDependency)
     end
 
+    def get_child_list_for(indexed_word)
+      send_nlp(:get_first_root, indexed_word.nlp_proxy)
+    end
+
     private
 
     def first_root
@@ -137,11 +148,32 @@ module StanfordCore
     end
   end
 
-  # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/trees/TypedDependency.html
+  # https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/semgraph/SemanticGraphEdge.html
+  class SemanticGraphEdge < NlpWrapper
+    def grammatical_relation
+      GrammaticalRelation.new(relation)
+    end
+
+    private
+
+    def relation
+      send_nlp(:relation)
+    end
+  end
+
+  # https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/trees/TypedDependency.html
   class TypedDependency < NlpWrapper
     def relation
       # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/trees/GrammaticalRelation.html
       grammatical_relation.to_s
+    end
+
+    def subject?
+      ["nsubj", "nsubjpass"].include?(relation) 
+    end
+
+    def object?
+      ["dobj", "iobj"].include?(relation) 
     end
 
     def grammatical_relation
@@ -171,12 +203,13 @@ module StanfordCore
     end
   end
 
-  # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/trees/GrammaticalRelation.html
-  class GrammaticalRelation < NlpWrapper
-  end
 
-  # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/ling/IndexedWord.html
+  # https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/ling/IndexedWord.html
   class IndexedWord < NlpWrapper
+    def position_in_sentence
+      send_nlp(:index)
+    end
+
     def lemmatize_if_can
       return lemma || word
     end

@@ -52,4 +52,11 @@ RSpec.describe StanfordCore::Sentence do
       expect(subject.tree.instance_of?(StanfordCore::Tree)).to eq(true)
     end
   end
+
+  describe '.semantic_graph' do
+    it 'works' do
+      binding.pry
+      expect(subject.semantic_graph).to eq([])
+    end
+  end
 end
