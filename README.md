@@ -22,6 +22,40 @@ Download and install the Stanford CoreNLP according to [Louis Mullie's instructi
 
 ## Running this project
 
+### With Docker
+
+1. Download Stanford CoreNLP
+
+run the following command on the project directory 
+
+```
+wget http://nlp.stanford.edu/software/stanford-postagger-full-2014-10-26.zip
+```
+
+2. Build docker image
+```
+$ docker build .
+```
+
+This should output a message like this:
+
+```
+Successfully built <docker_image_id>
+```
+
+
+2. Run container
+
+Take the `<docker_image_id>` from the previous step and then run
+
+```
+docker run -p 3000:3000 <docker_image_id>
+```
+
+Your application should be running on `localhost:3000`
+
+### Run with Ruby / Rails
+
 1. Install all dependencies
 
 2. Clone this respository
