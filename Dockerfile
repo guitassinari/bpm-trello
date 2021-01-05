@@ -19,7 +19,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 # https://github.com/arton/rjb/issues/70
 # RUN ln -s /usr/lib/jvm/java-10-openjdk-amd64/lib/server /usr/lib/jvm/java-11-openjdk-amd64/jre/lib/amd64/server
 
-ENV RUBY_PATHS /box
+ENV RUBY_PATHS /gem_path
 
 ENV BUNDLE_PATH ${RUBY_PATHS}
 ENV GEM_PATH ${RUBY_PATHS}
