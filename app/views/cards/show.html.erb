@@ -1,2 +1,15 @@
 <h1>Card: <%= @card.name %></h1>
 
+<div class="CardGrid">
+  <div class="CardActivitiesCard">
+    <h4>Original card</h4>
+    <h5> <%= @card.name %> </h5>
+    <%= @card.comments_as_conversation %>
+  </div>
+
+  <div class="CardActivitiesCard">
+    <h4>Preprocessed card</h4>
+    <h5> <%= @preprocessed_card.name %> </h5>
+    <%= @preprocessed_card.comments_as_conversation %>
+  </div>
+</div>

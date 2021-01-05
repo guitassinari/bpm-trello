@@ -35,13 +35,13 @@ WORKDIR $APP_HOME
 
 ADD Gemfile* $APP_HOME/
 RUN bundle install
-
-ADD . $APP_HOME
-
 ENV $GEM_PATH bundle show stanford-core-nlp
 
+ADD stanford-postagger-full-2014-10-26.zip $APP_HOME
 RUN unzip stanford-postagger-full-2014-10-26.zip; \
 	mv stanford-postagger-full-2014-10-26/* ${GEM_PATH}/gems/stanford-core-nlp-0.5.3/bin/;
+
+ADD . $APP_HOME
 
 EXPOSE 3000
 
