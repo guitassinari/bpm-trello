@@ -38,3 +38,5 @@ yarn-debug.log*
 .yardoc
 doc
 coverage
+
+stanford-postagger-full-2014-10-26.zip
