@@ -14,7 +14,8 @@ module BpmTrello
       end
 
       dummy = Preprocessor::TrelloDummies::Card.new(preprocessed_name, comments: preprocessed_comments_texts)
-      BpmTrello::Card.new(dummy)
+      new_dummy = Preprocessor::Actuators::AnaphoraResolver.new(dummy).run
+      BpmTrello::Card.new(new_dummy)
     end
   end  
 end
