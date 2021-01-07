@@ -11,9 +11,9 @@ module BpmTrello
         end
 
         def run
-          preprocessed_text = Preprocess::Text.new(concatenated_comments).substitute_coreferences
-          # comments = preprocessed_text.split(COMMENT_SEPARATOR).reverse
-          # BpmTrello::Preprocess::TrelloDummies::Card.new(card.name, comments: comments)
+          preprocessed_text = Preprocess::Text.new(concatenated_comments).substitute_coreferences.to_s
+          comments = preprocessed_text.split(COMMENT_SEPARATOR).reverse
+          BpmTrello::Preprocess::TrelloDummies::Card.new(card.name, comments: comments)
           card
         end
 
