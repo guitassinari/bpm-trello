@@ -30,7 +30,12 @@ run the following command on the project directory
 
 ```
 wget http://nlp.stanford.edu/software/stanford-corenlp-full-2014-10-31.zip &
-wget http://nlp.stanford.edu/software/stanford-postagger-full-2014-10-26.zip &
+wget http://nlp.stanford.edu/software/stanford-postagger-full-2014-10-26.zip 
+```
+
+The `joda-time.jar`, `xom.jar` and `bridge.jar` are already in the `jars` folders, so there's no need to download them. Even so, here are the commands to download them:
+
+```
 wget wget https://github.com/JodaOrg/joda-time/releases/download/v2.10.9/joda-time-2.10.9.jar &
 wget http://www.java2s.com/Code/JarDownload/xom/xom-1.2.5.jar.zipw &
 wget https://github.com/louismullie/stanford-core-nlp/blob/master/bin/bridge.jar
