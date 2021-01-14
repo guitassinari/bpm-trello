@@ -5,8 +5,9 @@ module BpmTrello
     ACTUATORS = [
       Preprocessor::Actuators::Periodifier,
       Preprocessor::Actuators::MarkdownLinksNormalizer,
+      Preprocessor::Actuators::UsernamesResolver,
       Preprocessor::Actuators::AnaphoraResolver,
-      Preprocessor::Actuators::TrelloAnaphorasResolver,
+      Preprocessor::Actuators::TrelloAnaphorasResolver
     ]
 
     def self.preprocess(card)

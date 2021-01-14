@@ -4,7 +4,6 @@ module BpmTrello
   module Preprocessor
     module Actuators
       class TrelloAnaphorasResolver < Base
-        COMMENT_SEPARATOR = ".COMMENT-SEPARATOR."
         def run
           resolved_comment_texts = card.comments.map { |c| substitute_anaphoras_in_comment(c) }
           resolved_description = substitute_anaphoras_in_description(card.desc)
