@@ -5,6 +5,7 @@ module BpmTrello
     ACTUATORS = [
       Preprocessor::Actuators::Periodifier,
       Preprocessor::Actuators::MarkdownLinksNormalizer,
+      Preprocessor::Actuators::TrelloLinksNormalizer,
       Preprocessor::Actuators::UsernamesResolver,
       Preprocessor::Actuators::AnaphoraResolver,
       Preprocessor::Actuators::TrelloAnaphorasResolver

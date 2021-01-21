@@ -12,13 +12,13 @@ module BpmTrello
 
         private
 
-        def build_card_dummy(card_name, comments:, desc: card.desc)
+        def build_card_dummy(card_name, comments: card.comments.map(&:name), desc: card.desc, checklists: card.checklists.map(&:items).map { |items_texts| items_texts.map(&:name) })
           original_card = if card.is_a?(BpmTrello::Preprocessor::TrelloDummies::Card)
                             card.original_card
                           else
                             card
                           end
-          BpmTrello::Preprocessor::TrelloDummies::Card.new(card_name, comments: comments, desc: card.desc, original_card: original_card)
+          BpmTrello::Preprocessor::TrelloDummies::Card.new(card_name, comments: comments, desc: desc, original_card: original_card, checklists: checklists)
         end
       end  
     end

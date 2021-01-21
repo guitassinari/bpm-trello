@@ -13,7 +13,7 @@ module BpmTrello
         private
 
         def normalize_links_in(text)
-          Preprocess::Text.new(text).substitute_markdown_links.to_s
+          text.gsub(/\[(.*?)\]\(.*?\)/, '\1')
         end
       end  
     end

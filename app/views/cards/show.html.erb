@@ -4,12 +4,54 @@
   <div class="CardActivitiesCard">
     <h4>Original card</h4>
     <h5> <%= @card.name %> </h5>
-    <%= @card.comments_as_conversation %>
+    <h6>Description</h6>
+    <div>
+      <%= @card.desc %>
+    </div>
+
+    <h6>Checklists</h6>
+    <div>
+     <% @card.checklists.map do |checklist| %>
+      <ul>
+        <% checklist.items.map do |item| %>
+        <li>
+         <%= item.name %>
+        </li>
+        <% end %>
+      </ul>
+      <% end %>
+    </div>
+    
+    <h6>Comments</h6>
+    <div>
+      <%= @card.comments_as_conversation %>
+    </div>
   </div>
 
   <div class="CardActivitiesCard">
     <h4>Preprocessed card</h4>
     <h5> <%= @preprocessed_card.name %> </h5>
-    <%= @preprocessed_card.comments_as_conversation %>
+    <h6>Description</h6>
+    <div>
+      <%= @preprocessed_card.desc %>
+    </div>
+
+    <h6>Checklists</h6>
+    <div>
+      <% @preprocessed_card.checklists.map do |checklist| %>
+      <ul>
+        <% checklist.items.map do |item| %>
+        <li>
+         <%= item.name %>
+        </li>
+        <% end %>
+      </ul>
+      <% end %>
+    </div>
+    
+    <h6>Comments</h6>
+    <div>
+      <%= @preprocessed_card.comments_as_conversation %>
+    </div>
   </div>
 </div>

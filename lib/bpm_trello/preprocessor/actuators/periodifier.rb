@@ -17,7 +17,7 @@ module BpmTrello
 
         def periodify(text)
           stripped_text = text.strip
-          unless SENTENCE_ENDERS.include?(stripped_text.last)
+          unless stripped_text.blank? || SENTENCE_ENDERS.include?(stripped_text.last)
             stripped_text + "."
           else
             stripped_text
