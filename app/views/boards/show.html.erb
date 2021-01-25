@@ -4,19 +4,7 @@
 <% @board.cards.each do |card| %>
   <div class="CardActivitiesCard">
     <h4><%= card.name %></h4>
-    <div>
-      <%= card.comments_as_conversation %>
-    </div>
-    <div>
-      <%= BpmTrello::TextPreprocessorFacade.new(card.comments_as_conversation).preprocess %>
-    </div>
-    <ul>
-      <% card.activities.each do |activity| %>
-       <li>
-          <%= activity.to_s %>
-       </li>
-      <% end %>
-    </ul>
+    <%= link_to "See card BPM info", card_path(id: card.id) %>
   </div>
 <% end %>
 </div>

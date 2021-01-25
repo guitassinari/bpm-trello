@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'benchmark'
 
 module BpmTrello
   class Board < SimpleDelegator

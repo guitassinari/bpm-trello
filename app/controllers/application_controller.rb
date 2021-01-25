@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   before_action :verify_trello_api_secrets
+  skip_before_action :verify_authenticity_token
 
   private
 

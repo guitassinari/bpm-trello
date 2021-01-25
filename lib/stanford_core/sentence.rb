@@ -74,6 +74,10 @@ module StanfordCore
       !(parser_parts_of_speech & VERBS).empty?
     end
 
+    def question?
+      tokens.last.to_s == '?'
+    end
+
     def semantic_graph
       @semantic_graph ||= SemanticGraph.new(nlp_semantic_graph)
     end

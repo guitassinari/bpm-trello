@@ -24,32 +24,41 @@ Download and install the Stanford CoreNLP according to [Louis Mullie's instructi
 
 ### With Docker
 
-1. Download Stanford CoreNLP
+1. Download Stanford CoreNLP and other JARS
 
 run the following command on the project directory 
 
 ```
-wget http://nlp.stanford.edu/software/stanford-postagger-full-2014-10-26.zip
+wget http://nlp.stanford.edu/software/stanford-corenlp-full-2014-10-31.zip &
+wget http://nlp.stanford.edu/software/stanford-postagger-full-2014-10-26.zip 
 ```
 
-2. Build docker image
+The `joda-time.jar`, `xom.jar` and `bridge.jar` are already in the `jars` folders, so there's no need to download them. Even so, here are the commands to download them:
+
 ```
-$ docker build .
+wget wget https://github.com/JodaOrg/joda-time/releases/download/v2.10.9/joda-time-2.10.9.jar &
+wget http://www.java2s.com/Code/JarDownload/xom/xom-1.2.5.jar.zipw &
+wget https://github.com/louismullie/stanford-core-nlp/blob/master/bin/bridge.jar
+```
+
+2. Build docker image using a tag
+```
+$ docker build -t bpmtrello:<tag> .
 ```
 
 This should output a message like this:
 
 ```
 Successfully built <docker_image_id>
+Successfully tagged bpmtrello:<tag>
 ```
-
 
 2. Run container
 
-Take the `<docker_image_id>` from the previous step and then run
+User the created tag to run the container
 
 ```
-docker run -p 3000:3000 <docker_image_id>
+docker run -p 3000:3000 bpmtrello:<tag>
 ```
 
 Your application should be running on `localhost:3000`
