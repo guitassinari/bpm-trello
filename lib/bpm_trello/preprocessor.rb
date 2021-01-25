@@ -8,7 +8,8 @@ module BpmTrello
       Preprocessor::Actuators::TrelloLinksNormalizer,
       Preprocessor::Actuators::UsernamesResolver,
       Preprocessor::Actuators::AnaphoraResolver,
-      Preprocessor::Actuators::TrelloAnaphorasResolver
+      Preprocessor::Actuators::TrelloAnaphorasResolver,
+      Preprocessor::Actuators::NoiseRemover
     ]
 
     def self.preprocess(card)
