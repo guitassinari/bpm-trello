@@ -5,7 +5,6 @@ module BpmTrello
     module Infos
       class TaskDefinition < Base
         def extract
-          
         end
       end  
     end
