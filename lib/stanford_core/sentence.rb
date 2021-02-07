@@ -149,6 +149,10 @@ module StanfordCore
       get_children_by_relation(indexed_word, GrammaticalRelation.nsubj)
     end
 
+    def all_conjunctions_of(indexed_word)
+      get_children_by_relation(indexed_word, GrammaticalRelation.conj)
+    end
+
     def get_children_by_relation(indexed_word, relation)
       iterable_method_to_array(:get_children_with_reln, IndexedWord, indexed_word.nlp_proxy, relation)
     end
@@ -203,6 +207,10 @@ module StanfordCore
   # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/trees/GrammaticalRelation.html
   class GrammaticalRelation < NlpWrapper
     class << self
+      def conj
+        get_english_relation_by_name("CONJUNCT")
+      end
+
       def nsubj
         get_english_relation_by_name("NOMINAL_SUBJECT")
       end
