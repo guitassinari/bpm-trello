@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe BpmTrello::BpmInfoExtractor::Nlp::ActivitiesExtractor do
-  let(:text) { "Guilherme and Nicolas always create beautiful post images and videos" }
+  let(:text) { "Guilherme and Nicolas always created beautiful post images and videos" }
   let(:subject) { described_class.new(text) }
 
   describe '.extract' do

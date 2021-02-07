@@ -134,6 +134,10 @@ module StanfordCore
         iterable_method_to_array(:typed_dependencies, TypedDependency)
     end
 
+    def noun_modifiers_of(noun_indexed_word)
+      get_children_by_relation(noun_indexed_word, GrammaticalRelation.noun_compound_modifier)
+    end
+
     def subject_relations
       find_edges_by_relation(GrammaticalRelation.nsubj)
     end
@@ -227,6 +231,10 @@ module StanfordCore
         get_english_relation_by_name("INDIRECT_OBJECT")
       end
 
+      def noun_compound_modifier
+        get_english_relation_by_name("NOUN_COMPOUND_MODIFIER")
+      end
+
       def get_english_relation_by_name(name)
         english_relations.send(name)
       end
@@ -265,10 +273,6 @@ module StanfordCore
 
   # https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/ling/IndexedWord.html
   class IndexedWord < NlpWrapper
-    def lemmatize_if_can
-      return lemma || word
-    end
-
     def pos_tag
       send_nlp(:tag)
     end
