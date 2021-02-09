@@ -39,12 +39,17 @@ module BpmTrello
         def create_activity_sentence_with(verb, subjects, objects)
           subjects_string = subjects.map { |o| compose_noun(o) } .join(' and ')
           objects_string = objects.map { |o| compose_noun(o) } .join(' and ')
-          subjects_string + ' ' + verb.lemma + ' ' + objects_string
+          subjects_string + ' ' + lemmatizer.lemma(verb.word, :verb) + ' ' + objects_string
         end
 
         def compose_noun(noun_indexed_word)
           modifiers = graph.noun_modifiers_of(noun_indexed_word)
-          modifiers.map(&:word).join(' ') + ' ' + noun_indexed_word.word
+          modifiers_string = if modifiers.blank?
+                               ''
+                             else
+                               modifiers.map(&:word).join(' ') + ' '
+                             end
+          modifiers_string + noun_indexed_word.word
         end
 
         def graph_facade
@@ -53,6 +58,10 @@ module BpmTrello
 
         def graph
           @graph ||= @sentence.semantic_graph
+        end
+
+        def lemmatizer
+          @lemmatizer ||= Lemmatizer.new
         end
       end
 
