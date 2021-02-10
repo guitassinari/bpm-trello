@@ -2,7 +2,7 @@
 
 module BpmTrello
   module BpmInfoExtractor
-    module Infos
+    module Actuators
       class TaskDefinition < Base
         def extract
         end

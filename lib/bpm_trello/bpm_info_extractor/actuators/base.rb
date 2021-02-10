@@ -2,7 +2,7 @@
 
 module BpmTrello
   module BpmInfoExtractor
-    module Infos
+    module Actuators
       class Base
         def initialize(card)
           @card = card

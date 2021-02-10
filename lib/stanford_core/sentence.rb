@@ -99,7 +99,6 @@ module StanfordCore
 
   # https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/semgraph/SemanticGraph.html
   class SemanticGraph < NlpWrapper
-    # TODO: Ver metodos getEdge
     def root
       IndexedWord.new(first_root)
     end

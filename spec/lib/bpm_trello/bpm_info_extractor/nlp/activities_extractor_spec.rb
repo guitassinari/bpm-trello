@@ -4,11 +4,11 @@ require 'rails_helper'
 
 RSpec.describe BpmTrello::BpmInfoExtractor::Nlp::ActivitiesExtractor do
   let(:text) { "Guilherme and Nicolas always created beautiful post images and videos" }
-  let(:subject) { described_class.new(text) }
+  let(:subject) { described_class.extract(text) }
 
   describe '.extract' do
     it 'works' do
-      expect(subject.extract).to eq(["Guilherme does homework"])
+      expect(subject.map(&:to_s)).to eq(["Guilherme does homework"])
     end
   end
 end
