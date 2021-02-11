@@ -4,8 +4,11 @@
       <span class="card-title">API Keys</span>
       <p>
         Please provide a Trello API Key and Token. You can find out how to generate those in the <a target="_blank" href="https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/#authentication-and-authorization">Trello API Introduction</a>.
-        This is going to allow BPM Trello to access your Trello data and perform the business process description generation. Don't worry! These keys are not stored in any kind of server database and only lives during this session.
+        This is going to allow BPM Trello to access your Trello data and perform the business process description generation.
       </p>
+      <small>
+       Don't worry! Neither these keys nor any of your data are not stored in any kind of server database and only lives during this session.
+      </small>
       <%= form_with(url: update_trello_settings_path) do |f| %>
         <div>
           <%= label_tag(:app_key, "APP KEY") %>
