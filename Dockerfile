@@ -4,16 +4,17 @@ RUN apt-get update -y && \
 	  apt-get install -y apt-utils \
 		openjdk-8-jre \
 		openjdk-8-jdk \
-		nano \ 
 		ant \
 		unzip \
 		wget \
 		git \
     gcc \
     mono-mcs \
-		nodejs
+		curl
 
-RUN rm -rf /var/lib/apt/lists/*
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x |bash -
+RUN apt -y install nodejs
+RUN npm install -g yarn
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
@@ -33,6 +34,8 @@ WORKDIR $APP_HOME
 
 ADD Gemfile* $APP_HOME/
 RUN bundle install
+RUN yarn
+
 ENV $GEM_PATH bundle show stanford-core-nlp
 ENV CORE_NLP_JAVA_PATH ${GEM_PATH}/gems/stanford-core-nlp-0.5.3/bin
 
