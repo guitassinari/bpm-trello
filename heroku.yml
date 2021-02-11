@@ -2,4 +2,4 @@ build:
   docker:
     web: Dockerfile.heroku
 run:
-  web: bundle exec rails s
+  web: bundle exec rails server -p ${PORT:-3000} -b 0.0.0.0

@@ -48,6 +48,4 @@ ADD jars/* $CORE_NLP_JAVA_PATH/
 
 ADD . $APP_HOME
 
-EXPOSE $PORT
-
 CMD bundle exec rails server -p $PORT -b 0.0.0.0
