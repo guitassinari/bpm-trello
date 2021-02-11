@@ -21,3 +21,7 @@ body {
 nav {
   background-color: #0079BF !important;
 }
+
+.container {
+  min-height: calc(100vh - 64px);
+}

@@ -1,8 +1,8 @@
-<h1>Hello, <%= @user.full_name %></h1>
-<h2>Click in one of your boards to extract Process Elements</h2>
+<h2>Hello, <%= @user.full_name %></h2>
+<h5>These are all the boards we could find in your Trello account. Click one of them to see its cards.</h5>
 <div class="BoardGrid">
   <% @boards.each do |board| %>
-    <%= link_to board_path(id: board.id), class: "card", style: "background-color: #{board.prefs["backgroundColor"]}" do %>
+    <%= link_to board_path(id: board.id), class: "BoardCard", style: "background-color: #{board.prefs["backgroundColor"]}" do %>
       <div>
         <%= board.name %>
       </div>  

@@ -1,14 +1,25 @@
-<%= form_with(url: update_trello_settings_path) do |f| %>
-  <div>
-    <%= label_tag(:app_key, "APP KEY") %>
-    <%= f.text_field :app_key %>
+<div style="height: 100%;" class="valign-wrapper">
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">API Keys</span>
+      <p>
+        Please provide a Trello API Key and Token. You can find out how to generate those in the <a target="_blank" href="https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/#authentication-and-authorization">Trello API Introduction</a>.
+        This is going to allow BPM Trello to access your Trello data and perform the business process description generation. Don't worry! These keys are not stored in any kind of server database and only lives during this session.
+      </p>
+      <%= form_with(url: update_trello_settings_path) do |f| %>
+        <div>
+          <%= label_tag(:app_key, "APP KEY") %>
+          <%= f.text_field :app_key %>
+        </div>
+        <div>
+          <%= label_tag(:api_key, "API KEY") %>
+          <%= f.text_field :api_key %>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+          Submit
+          <i class="material-icons right">send</i>
+        </button>
+      <% end %>
+    </div>
   </div>
-  <div>
-    <%= label_tag(:api_key, "API KEY") %>
-    <%= f.text_field :api_key %>
-  </div>
-   <button class="btn waves-effect waves-light" type="submit" name="action">
-     Submit
-    <i class="material-icons right">send</i>
-  </button>
-<% end %>
+</div>

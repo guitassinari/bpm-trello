@@ -1,10 +1,16 @@
-<h1>Board: <%= @board.name %></h1>
+<h2>Board: <%= @board.name %></h1>
+<h5>These are all cards we found in this board. There might be a lot of them so you should try searching for its name by pessing <code>Ctrl + F</code> and opening the browser page search.
+Once you have found the card you're looking for, click in "EXTRACT" to generate its business process description.</h5>
 
 <div class="CardGrid">
 <% @board.cards.each do |card| %>
-  <div class="CardActivitiesCard">
-    <h4><%= card.name %></h4>
-    <%= link_to "See card BPM info", card_path(id: card.id) %>
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title"><%= card.name %></span>
+    </div>
+    <div class="card-action">
+      <%= link_to "extract", card_path(id: card.id) %>
+    </div>
   </div>
 <% end %>
 </div>
