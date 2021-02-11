@@ -16,3 +16,5 @@
 // const imagePath = (name) => images(name, true)
 
 console.log('Hello World from Webpacker')
+import 'materialize-css/dist/css/materialize.min.css'
+import 'material-icons/iconfont/material-icons.scss'
