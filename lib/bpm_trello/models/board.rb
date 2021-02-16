@@ -2,9 +2,7 @@
 
 module BpmTrello
   module Models
-    class Board < SimpleDelegator
-      include BpmTrello::ElementExtractor
-    
+    class Board < SimpleDelegator    
       def activities
         @activities ||= all_cards.map { |c| c.activities }.flatten(1)
       end

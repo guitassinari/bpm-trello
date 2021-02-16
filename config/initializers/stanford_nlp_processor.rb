@@ -10,3 +10,5 @@ StanfordCoreNLP.default_jars = [
   'jollyday.jar',
   'bridge.jar'
 ]
+
+StanfordCore::NlpPipeline.new

@@ -2,9 +2,7 @@
 
 module BpmTrello
   module Models
-    class Card < SimpleDelegator
-      include BpmTrello::ElementExtractor
-    
+    class Card < SimpleDelegator    
       def activities
         extract_activities(comments_as_conversation)
       end
