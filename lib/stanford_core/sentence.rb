@@ -97,9 +97,8 @@ module StanfordCore
     end
   end
 
-  # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/semgraph/SemanticGraph.html
+  # https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/semgraph/SemanticGraph.html
   class SemanticGraph < NlpWrapper
-    # TODO: Ver metodos getEdge
     def root
       IndexedWord.new(first_root)
     end
@@ -134,7 +133,40 @@ module StanfordCore
         iterable_method_to_array(:typed_dependencies, TypedDependency)
     end
 
+    def noun_modifiers_of(noun_indexed_word)
+      get_children_by_relation(noun_indexed_word, GrammaticalRelation.noun_compound_modifier)
+    end
+
+    def subject_relations
+      find_edges_by_relation(GrammaticalRelation.nsubj)
+    end
+
+    def all_objects_of(indexed_word)
+      objects = get_children_by_relation(indexed_word, GrammaticalRelation.object)
+      d_objects = get_children_by_relation(indexed_word, GrammaticalRelation.direct_object)
+      ind_objects = get_children_by_relation(indexed_word, GrammaticalRelation.indirect_object)
+      objects + d_objects + ind_objects
+    end
+
+    def all_subjects_of(indexed_word)
+      get_children_by_relation(indexed_word, GrammaticalRelation.nsubj)
+    end
+
+    def all_conjunctions_of(indexed_word)
+      get_children_by_relation(indexed_word, GrammaticalRelation.conj)
+    end
+
+    def get_children_by_relation(indexed_word, relation)
+      iterable_method_to_array(:get_children_with_reln, IndexedWord, indexed_word.nlp_proxy, relation)
+    end
+
     private
+
+    def find_edges_by_relation(relation)
+      # relation must be a Java bridge object got by GrammaticalRelation.get_english_relation_by_name
+      iterable_method_to_array(:find_all_relns, SemanticGraphEdge, relation)
+    end
+
 
     def first_root
       send_nlp(:get_first_root)
@@ -161,7 +193,7 @@ module StanfordCore
     end
 
     private
-
+    
     def reln
       send_nlp(:reln)
     end
@@ -177,14 +209,69 @@ module StanfordCore
 
   # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/trees/GrammaticalRelation.html
   class GrammaticalRelation < NlpWrapper
+    class << self
+      def conj
+        get_english_relation_by_name("CONJUNCT")
+      end
+
+      def nsubj
+        get_english_relation_by_name("NOMINAL_SUBJECT")
+      end
+
+      def object
+        get_english_relation_by_name("OBJECT")
+      end
+
+      def direct_object
+        get_english_relation_by_name("DIRECT_OBJECT")
+      end
+
+      def indirect_object
+        get_english_relation_by_name("INDIRECT_OBJECT")
+      end
+
+      def noun_compound_modifier
+        get_english_relation_by_name("NOUN_COMPOUND_MODIFIER")
+      end
+
+      def get_english_relation_by_name(name)
+        english_relations.send(name)
+      end
+
+      private
+
+      # https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/trees/EnglishGrammaticalRelations.html
+      def english_relations
+        @english_relations ||= StanfordCoreNLP.load_class('EnglishGrammaticalRelations', 'edu.stanford.nlp.trees')
+      end
+    end
   end
 
-  # https://nlp.stanford.edu/nlp/javadoc/javanlp/edu/stanford/nlp/ling/IndexedWord.html
-  class IndexedWord < NlpWrapper
-    def lemmatize_if_can
-      return lemma || word
+  # https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/semgraph/SemanticGraphEdge.html
+  class SemanticGraphEdge < NlpWrapper
+
+    def governor
+      IndexedWord.new(gov)
     end
 
+    def dependent
+      IndexedWord.new(dep)
+    end
+
+    private
+
+
+    def dep
+      send_nlp(:get_dependent)
+    end
+
+    def gov
+      send_nlp(:get_governor)
+    end
+  end
+
+  # https://nlp.stanford.edu/nlp/javadoc/javanlp-3.5.0/edu/stanford/nlp/ling/IndexedWord.html
+  class IndexedWord < NlpWrapper
     def pos_tag
       send_nlp(:tag)
     end

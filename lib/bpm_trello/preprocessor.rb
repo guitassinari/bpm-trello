@@ -16,7 +16,7 @@ module BpmTrello
       preprocessed_card = ACTUATORS.reduce(card) do |card, actuator|
         actuator.new(card).run
       end
-      BpmTrello::Card.new(preprocessed_card)
+      BpmTrello::Models::Card.new(preprocessed_card)
     end
   end  
 end

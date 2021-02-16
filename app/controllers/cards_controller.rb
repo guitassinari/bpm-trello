@@ -6,6 +6,7 @@ class CardsController < ApplicationController
     @card = BpmTrello::Card.new(trello_card)
 
     @preprocessed_card = BpmTrello::Preprocessor.preprocess(trello_card)
+    @final_text = BpmTrello::BpmInfoExtractor.extract_from(@preprocessed_card)
   end
 
   private
