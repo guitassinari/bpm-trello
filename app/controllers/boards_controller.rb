@@ -2,7 +2,7 @@
 
 class BoardsController < ApplicationController
   def show
-    @board = BpmTrello::Board.new(Trello::Board.find(board_id))
+    @board = BpmTrello::Models::Board.new(Trello::Board.find(board_id))
   end
 
   private

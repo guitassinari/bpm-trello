@@ -34,7 +34,10 @@ WORKDIR $APP_HOME
 
 ADD Gemfile* $APP_HOME/
 RUN bundle install
-RUN yarn
+
+ADD package.json $APP_HOME/
+ADD yarn.lock $APP_HOME/
+RUN yarn install
 
 ENV $GEM_PATH bundle show stanford-core-nlp
 ENV CORE_NLP_JAVA_PATH ${GEM_PATH}/gems/stanford-core-nlp-0.5.3/bin
