@@ -10,6 +10,18 @@ module BpmTrello
             @subjects = subjects
             @objects = objects
           end
+
+          def complete?
+            has_subjects? && has_objects?
+          end
+
+          def has_subjects?
+            @subjects.present?
+          end
+
+          def has_objects?
+            @objects.present?
+          end
   
           def to_s
             concatenated_subjects + ' ' + @verb + ' ' + concatenated_objects

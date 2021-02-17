@@ -3,20 +3,21 @@
 module BpmTrello
   module Preprocessor
     module TrelloDummies
-      class Card  
+      class Card < SimpleDelegator
         def initialize(name, comments: [], desc: '', original_card:, checklists: [])
           @name = name
           @comments_texts = comments
           @desc = desc
           @original_card = original_card
           @checklists_items_texts = checklists
+          super(@original_card)
         end
 
         attr_reader :name, :desc, :original_card
 
         def comments
           @comments_dummies ||= comments_texts.zip(original_card.comments).map do |comment_text, original_comment| 
-            Comment.new(comment_text, original_comment: original_comment)
+            TrelloDummies::Comment.new(comment_text, original_comment: original_comment)
           end
         end
 
@@ -29,11 +30,6 @@ module BpmTrello
         private
         
         attr_reader :comments_texts, :checklists_items_texts
-        
-        def method_missing(method, *args)
-          return original_card.send(method, *args) if original_card.respond_to?(method)
-          super
-        end
       end  
     end
   end

@@ -123,6 +123,10 @@ module StanfordCore
       typed_dependencies.map(&:relation)
     end
 
+    def verbs
+      topological_sorted_indexed_words.select { |indexed_word| indexed_word.pos_tag =~ /VB+/  }
+    end
+
     def topological_sorted_indexed_words
       @topological_sorted_indexed_words ||=
         iterable_method_to_array(:vertex_list_sorted, IndexedWord)

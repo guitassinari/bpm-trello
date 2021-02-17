@@ -8,8 +8,8 @@ module BpmTrello
           description_activities = Nlp::ActivitiesExtractor.extract(card.desc)
           comments_activities = Nlp::ActivitiesExtractor.extract(card.comments_as_conversation)
           [
-            card_description_activities,
-            card_comments_activities
+            description_activities,
+            comments_activities
           ].flatten(1)
         end
       end  

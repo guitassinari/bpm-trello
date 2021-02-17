@@ -10,7 +10,7 @@ module BpmTrello
           end
   
           def activities
-            verbs.map do |verb|
+            graph.verbs.map do |verb|
               subjects = subjects_by_verb(verb)
               objects = objects_by_verb(verb)
               lemmatized_verb = lemmatizer.lemma(verb.word, :verb)
@@ -21,10 +21,6 @@ module BpmTrello
           private
   
           attr_reader :graph
-  
-          def verbs
-            graph.subject_relations.map(&:governor)
-          end
   
           def subjects_by_verb(verb_indexed_word)
             direct_subjects = graph.all_subjects_of(verb_indexed_word)  

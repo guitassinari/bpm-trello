@@ -3,10 +3,11 @@
 module BpmTrello
   module Preprocessor
     module TrelloDummies
-      class ChecklistItem
+      class ChecklistItem < SimpleDelegator
         def initialize(text, original_item:)
           @text = text
           @original_item = original_item
+          super(@original_item)
         end
 
         def name
@@ -16,11 +17,6 @@ module BpmTrello
         private
     
         attr_reader :text
-        
-        def method_missing(method, *args)
-          return @original_item.send(method, *args) if @original_item.respond_to?(method)
-          super
-        end
       end  
     end
   end
