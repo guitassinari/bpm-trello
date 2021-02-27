@@ -9,8 +9,8 @@ module StanfordCore
     def initialize
       @@pipeline ||= StanfordCoreNLP.load(:tokenize,
                                           :ssplit,
-                                          :parse,
                                           :pos,
+                                          :parse,
                                           :lemma,
                                           :ner,
                                           :dcoref)
