@@ -5,6 +5,7 @@ module BpmTrello
     module Nlp
       module ActivitiesExtractor
         class Activity
+          PRONOUNS_REGEX = /it|him|her|them|us|you/i
           def initialize(verb, subjects, objects, ors_activities=[], ands_activities=[])
             @verb = verb
             @subjects = subjects
@@ -32,11 +33,16 @@ module BpmTrello
           def has_objects?
             @objects.present?
           end
+
+          def qualified?
+            has_objects? && !(concatenated_objects =~ PRONOUNS_REGEX)
+          end
   
           def to_s
             @to_s ||= begin
               activity_string = concatenated_subjects + ' ' + @verb + ' ' + concatenated_objects + concatenated_ands + concatenated_ors
-              activity_string[0].upcase + activity_string[1..-1]
+              trimmed_string = activity_string.strip
+              trimmed_string[0].upcase + trimmed_string[1..-1]
             end
           end
 
@@ -48,7 +54,7 @@ module BpmTrello
 
           def concatenated_ands
             if @ands.present?
-              ' and' + @ands.join(' and ')
+              ' and ' + @ands.join(' and ')
             else 
               ''
             end
@@ -56,18 +62,18 @@ module BpmTrello
 
           def concatenated_ors
             if @ors.present?
-              ' or' + @ors.join(' or ')
+              ' or ' + @ors.join(' or ')
             else 
               ''
             end
           end
   
           def concatenated_subjects
-            @subjects.join(' and ')
+            @concatenated_subjects ||= @subjects.join(' and ')
           end
   
           def concatenated_objects
-            @objects.join(' and ')
+            @concatenated_objects ||= @objects.join(' and ')
           end
         end
       end

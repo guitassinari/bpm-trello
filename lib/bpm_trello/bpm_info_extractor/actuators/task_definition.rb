@@ -5,7 +5,7 @@ module BpmTrello
     module Actuators
       class TaskDefinition < Base
         def extract
-          task_definition = members_names + task_name
+          task_definition = [members_names, task_name].join(' ')
           if card.due.present?
             task_definition += ' until ' + due_date_string
           end
