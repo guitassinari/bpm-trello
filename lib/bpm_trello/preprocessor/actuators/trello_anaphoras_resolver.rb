@@ -6,8 +6,9 @@ module BpmTrello
       class TrelloAnaphorasResolver < Base
         def run
           resolved_comment_texts = card.comments.map { |c| substitute_anaphoras_in_comment(c) }
-          resolved_description = substitute_anaphoras_in_description(card.desc)
-          build_card_dummy(card.name, comments: resolved_comment_texts, desc: resolved_description)
+          resolved_description = substitute_anaphoras_in_general_text(card.desc)
+          resolved_checklists = card.checklists.map { |c| resolve_checklist(c) }
+          build_card_dummy(card.name, comments: resolved_comment_texts, desc: resolved_description, checklists: resolved_checklists)
         end
 
         private
@@ -20,12 +21,18 @@ module BpmTrello
                       .gsub(/\bwe\b/i, card_members_names)
         end
 
-        def substitute_anaphoras_in_description(description)
+        def substitute_anaphoras_in_general_text(description)
           description.gsub(/\bI'm\b/, "#{card_creator.full_name} is")
                      .gsub(/\bI am\b/, "#{card_creator.full_name} is")
                      .gsub(/\bI\b/, card_creator.full_name)
                      .gsub(/\bwe're\b/i,"#{card_members_names} are")
                      .gsub(/\bwe\b/i, card_members_names)
+        end
+
+        def resolve_checklist(checklist)
+          checklist.items.map do |item|
+            substitute_anaphoras_in_general_text(item.name)
+          end
         end
 
         def card_creator

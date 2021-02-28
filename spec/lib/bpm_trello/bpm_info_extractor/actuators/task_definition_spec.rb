@@ -6,7 +6,7 @@ RSpec.describe BpmTrello::BpmInfoExtractor::Actuators::TaskDefinition do
   let(:members) { 
     [double(:member_1, full_name: "Guilherme Tassinari")]
   }
-  let(:card) { double(:card, name: "Create the campaign image", members: members, due_date: Time.now) }
+  let(:card) { double(:card, name: "Create the campaign image and deliver the car or post a video", members: members, due: Time.now) }
   let(:subject) { described_class.new(card).extract }
 
   describe '.extract' do

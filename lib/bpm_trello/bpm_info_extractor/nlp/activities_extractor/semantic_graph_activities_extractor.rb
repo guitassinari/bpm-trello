@@ -11,16 +11,28 @@ module BpmTrello
   
           def activities
             graph.verbs.map do |verb|
-              subjects = subjects_by_verb(verb)
-              objects = objects_by_verb(verb)
-              lemmatized_verb = lemmatizer.lemma(verb.word, :verb)
-              Activity.new(lemmatized_verb, subjects, objects)
-            end
+              or_verbs = graph.all_or_conjunctions_of(verb)
+              and_verbs = graph.all_and_conjunctions_of(verb)
+              or_activities = or_verbs.map { |v| extract_activity_from_verb(v) }
+              and_activities = and_verbs.map { |v| extract_activity_from_verb(v) }
+              extract_activity_from_verb(verb)
+            end.select(&:present?)
           end
   
           private
   
           attr_reader :graph
+
+          def extract_activity_from_verb(verb)
+            subjects = subjects_by_verb(verb)
+            objects = objects_by_verb(verb)
+            lemmatized_verb = lemmatizer.lemma(verb.word, :verb)
+            or_verbs = graph.all_or_conjunctions_of(verb)
+            and_verbs = graph.all_and_conjunctions_of(verb)
+            ors = or_verbs.map { |v| extract_activity_from_verb(v) }
+            ands = and_verbs.map { |v| extract_activity_from_verb(v) }
+            BpmInfoExtractor::Models::Activity.new(lemmatized_verb, subjects, objects, ors_activities: ors, ands_activities: ands)
+          end
   
           def subjects_by_verb(verb_indexed_word)
             direct_subjects = graph.all_subjects_of(verb_indexed_word)  
@@ -39,7 +51,7 @@ module BpmTrello
           def compose_noun(noun_indexed_word)
             modifiers = graph.noun_modifiers_of(noun_indexed_word)
             modifiers_string = modifiers.map(&:word).join(' ')
-            [modifiers_string, noun_indexed_word.word].join(' ')
+            [modifiers_string, noun_indexed_word.word].select(&:present?).join(' ')
           end
   
           def lemmatizer

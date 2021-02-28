@@ -85,7 +85,7 @@ module StanfordCore
     private
 
     def nlp_semantic_graph
-      get_annotation(:basic_dependencies)
+      get_annotation(:collapsed_dependencies)
     end
 
     def nlp_tokens
@@ -158,6 +158,14 @@ module StanfordCore
 
     def all_conjunctions_of(indexed_word)
       get_children_by_relation(indexed_word, GrammaticalRelation.conj)
+    end
+
+    def all_and_conjunctions_of(indexed_word)
+      get_children_by_relation(indexed_word, GrammaticalRelation.conj_and)
+    end
+
+    def all_or_conjunctions_of(indexed_word)
+      get_children_by_relation(indexed_word, GrammaticalRelation.conj_or)
     end
 
     def get_children_by_relation(indexed_word, relation)
@@ -239,8 +247,30 @@ module StanfordCore
       end
 
       def get_english_relation_by_name(name)
-        english_relations.send(name)
+        send_to_english_relation(name)
       end
+
+      # and, or, neither
+      def coordination
+        get_english_relation_by_name("COORDINATION")
+      end
+
+      def send_to_english_relation(method_name, *arguments)
+        english_relations.send(method_name, *arguments)
+      end
+
+      def conj_and
+        get_conj("and")
+      end
+
+      def conj_or
+        get_conj("or")
+      end
+
+      def get_conj(conj_type)
+        send_to_english_relation(:getConj, conj_type)
+      end
+
 
       private
 
