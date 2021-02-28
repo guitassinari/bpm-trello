@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe BpmTrello::BpmInfoExtractor::Nlp::ActivitiesExtractor::Activity do
+RSpec.describe BpmTrello::BpmInfoExtractor::Models::Activity do
   let(:verb) { 'eat' }
   let(:subjects) { ['Guilherme', 'John'] }
   let(:objects) { ['seafood'] }

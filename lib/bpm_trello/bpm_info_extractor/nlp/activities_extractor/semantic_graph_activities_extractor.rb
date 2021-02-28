@@ -31,7 +31,7 @@ module BpmTrello
             and_verbs = graph.all_and_conjunctions_of(verb)
             ors = or_verbs.map { |v| extract_activity_from_verb(v) }
             ands = and_verbs.map { |v| extract_activity_from_verb(v) }
-            Activity.new(lemmatized_verb, subjects, objects, ors, ands)
+            BpmInfoExtractor::Models::Activity.new(lemmatized_verb, subjects, objects, ors_activities: ors, ands_activities: ands)
           end
   
           def subjects_by_verb(verb_indexed_word)
