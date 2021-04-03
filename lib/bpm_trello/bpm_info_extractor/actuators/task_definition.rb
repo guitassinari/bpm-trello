@@ -5,18 +5,13 @@ module BpmTrello
     module Actuators
       class TaskDefinition < Base
         def extract
-          extra_info = if card.due.present?
-            'until ' + due_date_string
-          else
-            ''
-          end
           BpmInfoExtractor::Models::Activity.new(
             activity.verb,  
             members_names + activity.subjects,
             activity.objects,
             ors_activities: activity.ors_activities,
             ands_activities: activity.ands_activities,
-            extra_info: extra_info
+            extra_info: ''
           )
         end
 

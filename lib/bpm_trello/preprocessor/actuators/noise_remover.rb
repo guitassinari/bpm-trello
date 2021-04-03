@@ -13,9 +13,7 @@ module BpmTrello
         private
 
         def remove_noise_sentences(text)
-          StanfordCore::Text.new(text).sentences_objects.select do |sentence_object|
-            sentence_object.has_verb? && !sentence_object.question?
-          end.join(' ')
+          Preprocessor::Nlp::NoiseSentencesRemover.new(text).remove
         end
       end  
     end

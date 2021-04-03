@@ -2,7 +2,7 @@
 
 module BpmTrello
   module Preprocessor
-    module TrelloDummies
+    module Models
       class Card < SimpleDelegator
         def initialize(name, comments: [], desc: '', original_card:, checklists: [])
           @name = name
@@ -17,13 +17,13 @@ module BpmTrello
 
         def comments
           @comments_dummies ||= comments_texts.zip(original_card.comments).map do |comment_text, original_comment| 
-            TrelloDummies::Comment.new(comment_text, original_comment: original_comment)
+            Models::Comment.new(comment_text, original_comment: original_comment)
           end
         end
 
         def checklists
           @checklists ||= checklists_items_texts.zip(original_card.checklists).map do |items, original_checklist|
-            TrelloDummies::Checklist.new(items, original_checklist: original_checklist)
+            Models::Checklist.new(items, original_checklist: original_checklist)
           end
         end
 

@@ -2,7 +2,7 @@
 
 module BpmTrello
   module Preprocessor
-    module TrelloDummies
+    module Models
       class Checklist < SimpleDelegator
         def initialize(items, original_checklist:)
           @items_texts = items
@@ -12,7 +12,7 @@ module BpmTrello
 
         def items
           @items ||= items_texts.zip(@original_checklist.items).map do |text, original_item|
-            TrelloDummies::ChecklistItem.new(text, original_item: original_item)
+            Models::ChecklistItem.new(text, original_item: original_item)
           end
         end
 

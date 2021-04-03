@@ -2,7 +2,7 @@
 
 module BpmTrello
   module Preprocessor
-    module TrelloDummies
+    module Models
       class Comment < SimpleDelegator
         def initialize(text, original_comment:)
           @text = text

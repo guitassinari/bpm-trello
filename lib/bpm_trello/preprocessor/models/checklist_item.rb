@@ -2,7 +2,7 @@
 
 module BpmTrello
   module Preprocessor
-    module TrelloDummies
+    module Models
       class ChecklistItem < SimpleDelegator
         def initialize(text, original_item:)
           @text = text
