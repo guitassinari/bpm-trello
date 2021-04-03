@@ -2,11 +2,7 @@
 
 module BpmTrello
   module Models
-    class Board < SimpleDelegator    
-      def activities
-        @activities ||= all_cards.map { |c| c.activities }.flatten(1)
-      end
-  
+    class Board < SimpleDelegator
       def cards
         super(filter: :all).map { |c| BpmTrello::Models::Card.new(c) }
       end
