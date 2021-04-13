@@ -22,9 +22,3 @@ class ApplicationController < ActionController::Base
     session[:app_key].present? && session[:api_key].present?
   end
 end
-
-# Trello.configure do |config|
-#   config.developer_public_key = "dbc35010b437c9852771d28949dcb876"
-#   config.member_token = "f83d0eacf594c76aa301cec299a89fd05b7f949aa10a295ef80b24c7adc9ed0a"
-# end
-# board = BpmTrello::Board.new(Trello::Board.find("5f21d2de06d4b72527efb2f2"))

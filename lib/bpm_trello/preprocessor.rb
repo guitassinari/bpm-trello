@@ -6,9 +6,9 @@ module BpmTrello
       Preprocessor::Actuators::Periodifier,
       Preprocessor::Actuators::MarkdownLinksNormalizer,
       Preprocessor::Actuators::TrelloLinksNormalizer,
-      Preprocessor::Actuators::UsernamesResolver,
+      Preprocessor::Actuators::MentionSubstitution,
       Preprocessor::Actuators::AnaphoraResolver,
-      Preprocessor::Actuators::TrelloAnaphorasResolver,
+      Preprocessor::Actuators::PronounsSubstitution,
       Preprocessor::Actuators::NoiseRemover
     ]
 

@@ -3,7 +3,7 @@
 module BpmTrello
   module Preprocessor
     module Actuators
-      class UsernamesResolver < Base
+      class MentionSubstitution < Base
         def run
           resolved_comment_texts = card.comments.map { |c| substitute_anaphoras_in_comment(c) }
           resolved_description = substitute_anaphoras_in_description(card.desc)

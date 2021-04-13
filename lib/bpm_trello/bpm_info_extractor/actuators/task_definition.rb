@@ -5,6 +5,8 @@ module BpmTrello
     module Actuators
       class TaskDefinition < Base
         def extract
+          return nil unless activity.present?
+          
           BpmInfoExtractor::Models::Activity.new(
             activity.verb,  
             members_names + activity.subjects,
@@ -19,10 +21,6 @@ module BpmTrello
 
         def members_names
           card.members.map(&:full_name)
-        end
-
-        def due_date_string
-          card.due.strftime("%d/%m %H:%M")
         end
 
         def activity

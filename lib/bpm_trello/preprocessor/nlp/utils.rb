@@ -50,6 +50,18 @@ module BpmTrello
           self
         end
 
+        def remove_markdown
+          # remove code
+          @processed_string = @processed_string.gsub(/\`\`\`((.|\n)*?)\`\`\`/, "")
+          @processed_string = @processed_string.gsub(/\`(.*?)\`/, '')
+
+          # remove formatting, but keep text
+          @processed_string = @processed_string.gsub(/\*\*(.*?)\*\*/, '\1')
+          @processed_string = @processed_string.gsub(/\~\~(.*?)\~\~/, '\1')
+          @processed_string = @processed_string.gsub(/\*(.*?)\*/, '\1')
+          self
+        end
+
         def substitute_markdown_links
           @processed_string = @processed_string.gsub(/\[(.*?)\]\(.*?\)/, '\1')
           self

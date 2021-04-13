@@ -13,7 +13,12 @@ module BpmTrello
         private
 
         def remove_noise_sentences(text)
-          Preprocessor::Nlp::NoiseSentencesRemover.new(text).remove
+          text_without_markdown = remove_markdown(text)
+          Preprocessor::Nlp::NoiseSentencesRemover.new(text_without_markdown).remove
+        end
+
+        def remove_markdown(text)
+          Preprocessor::Nlp::Utils.new(text).remove_markdown.to_s
         end
       end  
     end
