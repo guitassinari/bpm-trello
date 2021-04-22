@@ -72,6 +72,7 @@ GEM
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     json (2.3.1)
+    lemmatizer (0.2.2)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -87,7 +88,9 @@ GEM
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2020.0512)
-    mimemagic (0.3.5)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.1)
@@ -96,7 +99,7 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
-    oauth (0.5.4)
+    oauth (0.5.6)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -232,6 +235,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
   jbuilder (~> 2.5)
+  lemmatizer
   listen (>= 3.0.5, < 3.2)
   pry-byebug
   puma (~> 3.11)
